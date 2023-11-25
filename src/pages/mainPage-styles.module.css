@@ -29,3 +29,8 @@
 .button {
   margin-right: 30px;
 }
+
+.button:hover {
+  cursor: pointer;
+  font-size: 15px;
+}
