@@ -1,0 +1,11 @@
+.main {
+  margin: auto;
+  text-align: center;
+  z-index: 20;
+  width: 100px;
+  height: 100px;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
