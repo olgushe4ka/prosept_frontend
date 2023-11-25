@@ -1,0 +1,9 @@
+.main {
+    padding: 15px 0;
+    border-bottom: 1px solid grey;
+}
+
+.main:hover {
+    font-weight: 700;
+    cursor: pointer;
+}

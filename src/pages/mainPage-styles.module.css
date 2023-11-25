@@ -16,6 +16,7 @@
   padding-right: 30px;
   border-right: 1px solid gray;
   min-width: 200px;
+  max-width: 300px;
 }
 
 .block2AndButtons {
@@ -26,11 +27,21 @@
   min-height: 500px;
 }
 
+.buttons {
+  margin-top: 25px;
+}
+
 .button {
-  margin-right: 30px;
+  margin-right: 50px;
+  min-width: 150px;
+  font-size: 20px;
+}
+
+.myDropdown:hover {
+  cursor: pointer;
 }
 
 .button:hover {
   cursor: pointer;
-  font-size: 15px;
+  font-size: 25px;
 }
