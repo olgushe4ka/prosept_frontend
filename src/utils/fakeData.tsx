@@ -2,7 +2,7 @@ export const itemsList = [
   {
     id: 1,
     name: "Банка краска 5л 0Банка краска 5л 0Банка краска 5л 0Банка краска 5л 0Банка краска 5л 0Банка краска 5л 0Банка краска 5л 0Банка краска 5л 0Банка краска 5л 0Банка краска 5л 0",
-    link: "https://xn--90afqsbambik.xn--p1ai/products/kraska-aura-golfstrom-9l-osoboprochnaya-dlya-vannoy-i-kukhni-toniruetsya-po-eskarocolor/",
+    link: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSj_Oes9XV0wflizXA3YM_o1JHiAHGCORvjln6_7Nvn&s",
   },
   {
     id: 2,
