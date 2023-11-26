@@ -1,6 +1,6 @@
 import styles from "./menu.module.css";
 
-import Select from 'react-select';
+import Select from "react-select";
 
 interface SelectProps {
   items: { value: string; label: string }[];
@@ -8,7 +8,9 @@ interface SelectProps {
 }
 
 const MyDropdown: React.FC<SelectProps> = ({ items, onSelect }) => {
-  const handleSelect = (selectedOption: { value: string; label: string } | null) => {
+  const handleSelect = (
+    selectedOption: { value: string; label: string } | null
+  ) => {
     if (selectedOption) {
       onSelect(selectedOption.value);
     }
@@ -16,7 +18,7 @@ const MyDropdown: React.FC<SelectProps> = ({ items, onSelect }) => {
 
   return (
     <Select
-    className={styles.main}
+      className={styles.main}
       options={items}
       onChange={handleSelect}
       placeholder="Выберите товар"

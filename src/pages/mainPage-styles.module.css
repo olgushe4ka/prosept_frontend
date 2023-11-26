@@ -45,3 +45,9 @@
   cursor: pointer;
   font-size: 25px;
 }
+
+.selectedItem {
+  /* background-color: darkseagreen; */
+  font-weight: 700;
+  font-size: larger;
+}

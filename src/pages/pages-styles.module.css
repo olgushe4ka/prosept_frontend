@@ -1,4 +1,9 @@
 
+.resultPage{
+  padding: 50px;
+
+}
+
 .pageFourOFour {
   display: flex;
   flex-direction: column;

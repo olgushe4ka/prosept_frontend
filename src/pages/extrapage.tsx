@@ -1,10 +1,14 @@
+import Table from "../components/table/table";
+import { itemsList } from "../utils/fakeData";
 import styles from "./pages-styles.module.css";
 import {} from "react-icons/fa";
 
 function Extrapage() {
   return (
     <>
-      <div className={`${styles.pageFourOFour} `}>Таблица с данными, которые можно выгрузить</div>
+      <div className={`${styles.resultPage} `}>
+        <Table data={itemsList} />
+      </div>
     </>
   );
 }
