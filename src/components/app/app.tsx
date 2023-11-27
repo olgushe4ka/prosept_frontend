@@ -1,4 +1,4 @@
-import { MainPage, Page404, Extrapage } from "../../pages/index";
+import { MainPage, Page404, Extrapage, LoginPage } from "../../pages/index";
 import { Switch, Route, useLocation } from "react-router-dom";
 
 import AppHeader from "../app-header/app-header";
@@ -21,6 +21,10 @@ function App() {
         <Route path="/extrapage" exact={true}>
           <Extrapage />
         </Route>
+        <Route path="/login" exact={true}>
+          <LoginPage />
+        </Route>
+
 
         <Route>
           <Page404 />
