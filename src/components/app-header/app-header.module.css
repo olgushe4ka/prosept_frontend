@@ -43,9 +43,6 @@
   font-weight: 800;
 }
 
-.logo img {
-  border-radius: 50%;
-}
 
 @media (max-width: 770px) {
   .header {
