@@ -1,4 +1,4 @@
-import MyDropdown from '../components/menu/menu'
+import MyDropdown from '../components/drop-down/drop-down'
 import styles from './main.module.css'
 import ItemFromItemsList from '../components/items-list/items-list'
 import { itemsList } from '../utils/fakeData'
@@ -10,11 +10,9 @@ interface SelectedItem {
 }
 
 function MainPage() {
-  const items = [
-    { value: 'Краска', label: 'Краска' },
-    { value: 'Шампунь', label: 'Шампунь' },
-    { value: 'Мыло', label: 'Мыло' },
-    { value: 'Антисептик', label: 'Антисептик' },
+  const dillers = [
+    { value: 'Ozon', label: 'Ozon' },
+    { value: 'Wb', label: 'Wb' },
   ]
 
   const [selectedItem, setSelectedItem] = useState<SelectedItem | null>(null)
@@ -24,13 +22,12 @@ function MainPage() {
     setSelectedItem({ name: item, link: link })
   }
 
-  const handleDropdownSelect = (selectedValue: string) => {
+  const handleDropdownSelect = (items: string | string[] | null) => {
     setIsDropdownItemSelected(true)
   }
 
   return (
     <div className={styles.app}>
-     
       <div className={styles.main}>
         <div className={styles.block1}>
           <h3>Список позиций Просепт:</h3>
@@ -49,7 +46,7 @@ function MainPage() {
         </div>
         <div className={styles.block2AndButtons}>
           <div className={styles.block2}>
-          <MyDropdown items={items} onSelect={handleDropdownSelect} />
+            <MyDropdown items={dillers} onSelect={handleDropdownSelect} />
             <a
               href={selectedItem?.link}
               target="_blank"
