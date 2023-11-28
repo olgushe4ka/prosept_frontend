@@ -30,7 +30,7 @@ function MainPage() {
 
   return (
     <div className={styles.app}>
-      <MyDropdown items={items} onSelect={handleDropdownSelect} />
+     
       <div className={styles.main}>
         <div className={styles.block1}>
           <h3>Список позиций Просепт:</h3>
@@ -49,6 +49,7 @@ function MainPage() {
         </div>
         <div className={styles.block2AndButtons}>
           <div className={styles.block2}>
+          <MyDropdown items={items} onSelect={handleDropdownSelect} />
             <a
               href={selectedItem?.link}
               target="_blank"

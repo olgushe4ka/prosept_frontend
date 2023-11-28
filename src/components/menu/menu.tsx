@@ -21,7 +21,7 @@ const MyDropdown: React.FC<SelectProps> = ({ items, onSelect }) => {
       className={styles.main}
       options={items}
       onChange={handleSelect}
-      placeholder="Выберите товар"
+      placeholder="Выберите диллера"
     />
   )
 }
