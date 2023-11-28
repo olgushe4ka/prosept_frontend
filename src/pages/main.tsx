@@ -1,9 +1,8 @@
 import MyDropdown from "../components/menu/menu";
-import styles from "./mainPage-styles.module.css";
+import styles from "./main.module.css";
 import ItemFromItemsList from "../components/items-list/items-list";
 import { itemsList } from "../utils/fakeData";
-import MiniBrowser from "../components/mini-browser/mini-browser";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface SelectedItem {
   name: string;
@@ -27,67 +26,60 @@ function MainPage() {
 
   const handleDropdownSelect = (selectedValue: string) => {
     setIsDropdownItemSelected(true);
-    // Handle any other logic related to dropdown selection
   };
 
   return (
     <div className={styles.app}>
       <MyDropdown items={items} onSelect={handleDropdownSelect} />
-      {isDropdownItemSelected && (
-        <div className={styles.main}>
-          <div className={styles.block1}>
-            <h3>Список позиций:</h3>
-            {itemsList.map((item) => (
-              <div
-                key={item.id}
-                onClick={() => handleSelectItem(item.name, item.link)}
-                className={
-                  selectedItem?.name === item.name ? styles.selectedItem : ""
-                }
-              >
-                <ItemFromItemsList item={item.name} />
-              </div>
-            ))}
-          </div>
-          <div className={styles.block2AndButtons}>
-            <div className={styles.block2}>
-              {selectedItem && (
-                <>
-                  <a
-                    href={selectedItem?.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.block2}
-                  >
-                    Ссылка на товар
-                  </a>
-                  <MiniBrowser initialUrl={selectedItem.link} />{" "}
-                  <div className={styles.buttons}>
-                    <button
-                      className={styles.button}
-                      onClick={() => console.log("Button pressed")}
-                    >
-                      Да
-                    </button>
-                    <button
-                      className={styles.button}
-                      onClick={() => console.log("Button pressed")}
-                    >
-                      Нет
-                    </button>
-                    <button
-                      className={styles.button}
-                      onClick={() => console.log("Button pressed")}
-                    >
-                      Отложить
-                    </button>
-                  </div>{" "}
-                </>
-              )}
+      <div className={styles.main}>
+        <div className={styles.block1}>
+          <h3>Список позиций Просепт:</h3>
+          <input placeholder="Поиск" />
+          {itemsList.map((item) => (
+            <div
+              key={item.id}
+              onClick={() => handleSelectItem(item.name, item.link)}
+              className={
+                selectedItem?.name === item.name ? styles.selectedItem : ""
+              }
+            >
+              <ItemFromItemsList item={item.name} />
             </div>
+          ))}
+        </div>
+        <div className={styles.block2AndButtons}>
+          <div className={styles.block2}>
+            <a
+              href={selectedItem?.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.block2}
+            >
+              Название товара с гипперссылкой на него
+            </a>
+            <div className={styles.buttons}>
+              <button
+                className={styles.button}
+                onClick={() => console.log("Button pressed")}
+              >
+                Да
+              </button>
+              <button
+                className={styles.button}
+                onClick={() => console.log("Button pressed")}
+              >
+                Нет
+              </button>
+              <button
+                className={styles.button}
+                onClick={() => console.log("Button pressed")}
+              >
+                Отложить
+              </button>
+            </div>{" "}
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }
