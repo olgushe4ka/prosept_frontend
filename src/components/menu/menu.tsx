@@ -1,20 +1,20 @@
-import styles from "./menu.module.css";
+import styles from './menu.module.css'
 
-import Select from "react-select";
+import Select from 'react-select'
 
 interface SelectProps {
-  items: { value: string; label: string }[];
-  onSelect: (items: string) => void;
+  items: { value: string; label: string }[]
+  onSelect: (items: string) => void
 }
 
 const MyDropdown: React.FC<SelectProps> = ({ items, onSelect }) => {
   const handleSelect = (
-    selectedOption: { value: string; label: string } | null
+    selectedOption: { value: string; label: string } | null,
   ) => {
     if (selectedOption) {
-      onSelect(selectedOption.value);
+      onSelect(selectedOption.value)
     }
-  };
+  }
 
   return (
     <Select
@@ -23,7 +23,7 @@ const MyDropdown: React.FC<SelectProps> = ({ items, onSelect }) => {
       onChange={handleSelect}
       placeholder="Выберите товар"
     />
-  );
-};
+  )
+}
 
-export default MyDropdown;
+export default MyDropdown

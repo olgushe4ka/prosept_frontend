@@ -1,15 +1,15 @@
-import { MainPage, Page404 } from "../../pages/index";
-import { Switch, Route, useLocation } from "react-router-dom";
+import { MainPage, Page404 } from '../../pages/index'
+import { Switch, Route, useLocation } from 'react-router-dom'
 
-import AppHeader from "../app-header/app-header";
+import AppHeader from '../app-header/app-header'
 
-import { Location } from "history";
-import AppFooter from "../app-footer/app-footer";
+import { Location } from 'history'
+import AppFooter from '../app-footer/app-footer'
 
 function App() {
-  const location = useLocation<{ background: Location }>();
+  const location = useLocation<{ background: Location }>()
 
-  const background = location.state && location.state?.background;
+  const background = location.state && location.state?.background
 
   return (
     <>
@@ -28,7 +28,7 @@ function App() {
       </Switch>
       <AppFooter />
     </>
-  );
+  )
 }
 
-export default App;
+export default App

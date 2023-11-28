@@ -1,14 +1,14 @@
-import styles from "./table.module.css";
+import styles from './table.module.css'
 
-import * as XLSX from "xlsx";
+import * as XLSX from 'xlsx'
 
 const Table = ({ data }: any) => {
   const exportToExcel = () => {
-    const ws = XLSX.utils.json_to_sheet(data);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
-    XLSX.writeFile(wb, "table.xlsx");
-  };
+    const ws = XLSX.utils.json_to_sheet(data)
+    const wb = XLSX.utils.book_new()
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1')
+    XLSX.writeFile(wb, 'table.xlsx')
+  }
 
   return (
     <>
@@ -30,9 +30,11 @@ const Table = ({ data }: any) => {
           ))}
         </tbody>
       </table>
-      <button className={styles.button} onClick={exportToExcel}>Export to Excel</button>
+      <button className={styles.button} onClick={exportToExcel}>
+        Export to Excel
+      </button>
     </>
-  );
-};
+  )
+}
 
-export default Table;
+export default Table

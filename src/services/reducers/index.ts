@@ -1,4 +1,4 @@
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux'
 
 import {
   LIVE_ORDER_FEED_CONNECT,
@@ -8,13 +8,13 @@ import {
   LIVE_ORDER_FEED_WS_CLOSE,
   LIVE_ORDER_FEED_WS_MESSAGE,
   LIVE_ORDER_FEED_WS_ERROR,
-} from "../actions/web-soket";
-import { socketMiddleware } from "../middleware/soket-middleware";
-import { liveOrderFeedReducer } from "./web-soket";
+} from '../actions/web-soket'
+import { socketMiddleware } from '../middleware/soket-middleware'
+import { liveOrderFeedReducer } from './web-soket'
 
 export const rootReducer = combineReducers({
   ws: liveOrderFeedReducer,
-});
+})
 
 export const wsActions = {
   wsConnect: LIVE_ORDER_FEED_CONNECT,
@@ -24,6 +24,6 @@ export const wsActions = {
   onClose: LIVE_ORDER_FEED_WS_CLOSE,
   onError: LIVE_ORDER_FEED_WS_ERROR,
   onMessage: LIVE_ORDER_FEED_WS_MESSAGE,
-};
+}
 
-export const burgersMiddleware = socketMiddleware(wsActions);
+export const burgersMiddleware = socketMiddleware(wsActions)

@@ -1,4 +1,4 @@
-import { WebsocketStatus } from "../../utils/constants";
+import { WebsocketStatus } from '../../utils/constants'
 import {
   TWSActions,
   LIVE_ORDER_FEED_WS_CONNECTING,
@@ -6,19 +6,19 @@ import {
   LIVE_ORDER_FEED_WS_CLOSE,
   LIVE_ORDER_FEED_WS_MESSAGE,
   LIVE_ORDER_FEED_WS_ERROR,
-} from "../actions/web-soket";
+} from '../actions/web-soket'
 
 export type TWSListState = {
-  status: string;
-  connectionError: string;
-  table: any;
-};
+  status: string
+  connectionError: string
+  table: any
+}
 
 const initialState: TWSListState = {
   status: WebsocketStatus.OFFLINE,
-  connectionError: "",
+  connectionError: '',
   table: [],
-};
+}
 
 export const liveOrderFeedReducer = (
   state = initialState,
@@ -29,39 +29,39 @@ export const liveOrderFeedReducer = (
       return {
         ...state,
         status: WebsocketStatus.CONNECTING,
-      };
+      }
     }
     case LIVE_ORDER_FEED_WS_OPEN: {
       return {
         ...state,
         status: WebsocketStatus.ONLINE,
-        connectionError: "",
-      };
+        connectionError: '',
+      }
     }
     case LIVE_ORDER_FEED_WS_CLOSE: {
       return {
         ...state,
         status: WebsocketStatus.OFFLINE,
-        connectionError: "",
-      };
+        connectionError: '',
+      }
     }
 
     case LIVE_ORDER_FEED_WS_ERROR: {
       return {
         ...state,
         connectionError: action.payload,
-      };
+      }
     }
 
     case LIVE_ORDER_FEED_WS_MESSAGE: {
       return {
         ...state,
         table: action.payload,
-      };
+      }
     }
 
     default: {
-      return state;
+      return state
     }
   }
-};
+}

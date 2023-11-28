@@ -1,9 +1,9 @@
 .main {
-    padding: 15px 0;
-    border-bottom: 1px solid gray;;
+  padding: 15px 0;
+  border-bottom: 1px solid gray;
 }
 
 .main:hover {
-    font-weight: 700;
-    cursor: pointer;
+  font-weight: 700;
+  cursor: pointer;
 }

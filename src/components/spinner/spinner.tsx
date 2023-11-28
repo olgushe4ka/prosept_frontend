@@ -1,5 +1,5 @@
-import { TailSpin } from "react-loader-spinner";
-import SpinnerStyles from "./spinner.module.css";
+import { TailSpin } from 'react-loader-spinner'
+import SpinnerStyles from './spinner.module.css'
 
 function Spinner() {
   return (
@@ -13,7 +13,7 @@ function Spinner() {
         visible={true}
       />
     </div>
-  );
+  )
 }
 
-export default Spinner;
+export default Spinner

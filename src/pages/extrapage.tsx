@@ -1,7 +1,7 @@
-import Table from "../components/table/table";
-import { itemsList } from "../utils/fakeData";
-import styles from "./pages-styles.module.css";
-import {} from "react-icons/fa";
+import Table from '../components/table/table'
+import { itemsList } from '../utils/fakeData'
+import styles from './pages-styles.module.css'
+import {} from 'react-icons/fa'
 
 function Extrapage() {
   return (
@@ -10,7 +10,7 @@ function Extrapage() {
         <Table data={itemsList} />
       </div>
     </>
-  );
+  )
 }
 
-export default Extrapage;
+export default Extrapage

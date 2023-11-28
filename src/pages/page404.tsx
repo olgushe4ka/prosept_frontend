@@ -1,4 +1,4 @@
-import styles from "./pages-styles.module.css";
+import styles from './pages-styles.module.css'
 
 function Page404() {
   return (
@@ -7,7 +7,7 @@ function Page404() {
         <p className="text text_type_main-large">Страница не найдена</p>
       </div>
     </>
-  );
+  )
 }
 
-export default Page404;
+export default Page404

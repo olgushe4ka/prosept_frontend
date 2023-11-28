@@ -1,32 +1,32 @@
-import MyDropdown from "../components/menu/menu";
-import styles from "./main.module.css";
-import ItemFromItemsList from "../components/items-list/items-list";
-import { itemsList } from "../utils/fakeData";
-import { useState } from "react";
+import MyDropdown from '../components/menu/menu'
+import styles from './main.module.css'
+import ItemFromItemsList from '../components/items-list/items-list'
+import { itemsList } from '../utils/fakeData'
+import { useState } from 'react'
 
 interface SelectedItem {
-  name: string;
-  link: string;
+  name: string
+  link: string
 }
 
 function MainPage() {
   const items = [
-    { value: "Краска", label: "Краска" },
-    { value: "Шампунь", label: "Шампунь" },
-    { value: "Мыло", label: "Мыло" },
-    { value: "Антисептик", label: "Антисептик" },
-  ];
+    { value: 'Краска', label: 'Краска' },
+    { value: 'Шампунь', label: 'Шампунь' },
+    { value: 'Мыло', label: 'Мыло' },
+    { value: 'Антисептик', label: 'Антисептик' },
+  ]
 
-  const [selectedItem, setSelectedItem] = useState<SelectedItem | null>(null);
-  const [isDropdownItemSelected, setIsDropdownItemSelected] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<SelectedItem | null>(null)
+  const [isDropdownItemSelected, setIsDropdownItemSelected] = useState(false)
 
   const handleSelectItem = (item: string, link: string) => {
-    setSelectedItem({ name: item, link: link });
-  };
+    setSelectedItem({ name: item, link: link })
+  }
 
   const handleDropdownSelect = (selectedValue: string) => {
-    setIsDropdownItemSelected(true);
-  };
+    setIsDropdownItemSelected(true)
+  }
 
   return (
     <div className={styles.app}>
@@ -40,7 +40,7 @@ function MainPage() {
               key={item.id}
               onClick={() => handleSelectItem(item.name, item.link)}
               className={
-                selectedItem?.name === item.name ? styles.selectedItem : ""
+                selectedItem?.name === item.name ? styles.selectedItem : ''
               }
             >
               <ItemFromItemsList item={item.name} />
@@ -60,28 +60,28 @@ function MainPage() {
             <div className={styles.buttons}>
               <button
                 className={styles.button}
-                onClick={() => console.log("Button pressed")}
+                onClick={() => console.log('Button pressed')}
               >
                 Да
               </button>
               <button
                 className={styles.button}
-                onClick={() => console.log("Button pressed")}
+                onClick={() => console.log('Button pressed')}
               >
                 Нет
               </button>
               <button
                 className={styles.button}
-                onClick={() => console.log("Button pressed")}
+                onClick={() => console.log('Button pressed')}
               >
                 Отложить
               </button>
-            </div>{" "}
+            </div>{' '}
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default MainPage;
+export default MainPage
