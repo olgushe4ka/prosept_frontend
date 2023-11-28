@@ -1,4 +1,6 @@
 module.exports = {
-  extends: ['eslint:recommended', 'plugin:prettier/recommended'],
-  rules: {},
-}
+    parser: '@typescript-eslint/parser',
+    rules: {
+    },
+  };
+  
