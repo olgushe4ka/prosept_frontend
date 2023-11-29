@@ -1,8 +1,7 @@
-import MyDropdown from '../components/drop-down/drop-down'
-import styles from './main.module.css'
-import ItemFromItemsList from '../components/items-list/items-list'
-import { itemsList } from '../utils/fakeData'
 import { useState } from 'react'
+import LeftWindow from '../components/left-window/left-window'
+import MyDropdown from '../components/menu/menu'
+import styles from './main.module.css'
 
 interface SelectedItem {
   name: string
@@ -29,7 +28,8 @@ function MainPage() {
   return (
     <div className={styles.app}>
       <div className={styles.main}>
-        <div className={styles.block1}>
+        <LeftWindow />
+        {/* <div className={styles.block1}>
           <h3>Список позиций Просепт:</h3>
           <input placeholder="Поиск" />
           {itemsList.map((item) => (
@@ -42,11 +42,12 @@ function MainPage() {
             >
               <ItemFromItemsList item={item.name} />
             </div>
-          ))}
-        </div>
+            </div>
+          ))} */}
+
         <div className={styles.block2AndButtons}>
           <div className={styles.block2}>
-            <MyDropdown items={dillers} onSelect={handleDropdownSelect} />
+            <MyDropdown items={items} onSelect={handleDropdownSelect} />
             <a
               href={selectedItem?.link}
               target="_blank"
