@@ -5,18 +5,9 @@ import MyDropdown from '../components/drop-down/drop-down'
 import { dillerProduct, dillers } from '../utils/fakeData'
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
 
-interface SelectedItem {
-  name: string
-  link: string
-}
 
 function MainPage() {
-  const [selectedItem, setSelectedItem] = useState<SelectedItem | null>(null)
   const [isDropdownItemSelected, setIsDropdownItemSelected] = useState(false)
-
-  const handleSelectItem = (item: string, link: string) => {
-    setSelectedItem({ name: item, link: link })
-  }
 
   const handleDropdownSelect = (items: string | string[] | null) => {
     setIsDropdownItemSelected(true)

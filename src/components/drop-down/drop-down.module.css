@@ -1,12 +1,4 @@
-.main input{
-    background-color: #b5e0c3;
-    border-color: #b5e0c3;
-  }
-  
-  .option {
-    /* Дополнительные стили для опций */
-  }
-  
-  .multiValue {
-    /* Дополнительные стили для множественных значений */
-  }
+.main input {
+  background-color: #b5e0c3;
+  border-color: #b5e0c3;
+}
