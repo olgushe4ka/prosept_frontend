@@ -1,6 +1,5 @@
-import React, { useRef, useState } from 'react'
-import Select from 'react-select'
 import styles from './drop-down.module.css'
+import Select from 'react-select'
 
 interface SelectProps {
   items: { value: string; label: string }[]
@@ -8,40 +7,16 @@ interface SelectProps {
 }
 
 const MyDropdown: React.FC<SelectProps> = ({ items, onSelect }) => {
-  const valueRef = useRef<string[]>([])
-  const [isSelectAllSelected, setIsSelectAllSelected] = useState<boolean>(false)
-
-  const selectAllOption = {
-    value: '<SELECT_ALL>',
-    label: 'Выбрать все',
-  }
-
-  const getOptions = () => {
-    if (isSelectAllSelected) {
-      return [selectAllOption]
-    }
-    return [selectAllOption, ...items]
-  }
-
   const handleSelect = (selectedOptions: any) => {
     if (selectedOptions) {
-      const selectedValues = Array.isArray(selectedOptions)
-        ? selectedOptions.map((option) => option.value)
-        : [selectedOptions.value]
-
-      if (selectedValues.includes(selectAllOption.value)) {
-        setIsSelectAllSelected(true)
-        onSelect(items.map((item) => item.value))
-      } else {
-        setIsSelectAllSelected(false)
+      if (Array.isArray(selectedOptions)) {
+        const selectedValues = selectedOptions.map((option) => option.value)
         onSelect(selectedValues)
+      } else {
+        onSelect(selectedOptions.value)
       }
-
-      valueRef.current = selectedValues
     } else {
-      setIsSelectAllSelected(false)
       onSelect(null)
-      valueRef.current = []
     }
   }
 
@@ -64,12 +39,12 @@ const MyDropdown: React.FC<SelectProps> = ({ items, onSelect }) => {
   return (
     <Select
       className={styles.main}
-      options={getOptions()}
+      options={items}
       onChange={handleSelect}
       placeholder="Выберите диллера"
+      styles={customStyles}
       isClearable
       isMulti
-      styles={customStyles}
     />
   )
 }
