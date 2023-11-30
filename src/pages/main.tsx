@@ -1,33 +1,18 @@
 import { useState } from 'react'
 import LeftWindow from '../components/left-window/left-window'
-import MyDropdown from '../components/menu/menu'
 import Popup from '../components/popup/popup'
 import styles from './main.module.css'
-
-interface SelectedItem {
-  name: string
-  link: string
-}
+import MyDropdown from '../components/drop-down/drop-down'
+import { dillerProduct, dillers } from '../utils/fakeData'
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
 
 function MainPage() {
-  const items = [
-    { value: 'Краска', label: 'Краска' },
-    { value: 'Шампунь', label: 'Шампунь' },
-    { value: 'Мыло', label: 'Мыло' },
-    { value: 'Антисептик', label: 'Антисептик' },
-  ]
-
-  const [selectedItem, setSelectedItem] = useState<SelectedItem | null>(null)
   const [isDropdownItemSelected, setIsDropdownItemSelected] = useState(false)
 
-  const [isResultOpen, setIsResultOpen] = useState<boolean>(true) // по умолчанию false
+  const [isResultOpen, setIsResultOpen] = useState<boolean>(false) // по умолчанию false
   const [isStatisticsOpen, setIsStatisticsOpen] = useState<boolean>(false)
 
-  const handleSelectItem = (item: string, link: string) => {
-    setSelectedItem({ name: item, link: link })
-  }
-
-  const handleDropdownSelect = (selectedValue: string) => {
+  const handleDropdownSelect = (items: string | string[] | null) => {
     setIsDropdownItemSelected(true)
   }
 
@@ -35,16 +20,26 @@ function MainPage() {
     <div className={styles.app}>
       <div className={styles.main}>
         <LeftWindow />
+
         <div className={styles.block2AndButtons}>
           <div className={styles.block2}>
-            <MyDropdown items={items} onSelect={handleDropdownSelect} />
+            <MyDropdown
+              items={dillers}
+              onSelect={handleDropdownSelect}
+              placeholder={'Выберите дилера'}
+            />
+            <div className={styles.arrows}>
+              <FaArrowLeft />
+              <FaArrowRight />
+            </div>
             <a
-              href={selectedItem?.link}
+              href={dillerProduct.link}
               target="_blank"
               rel="noopener noreferrer"
-              className={styles.block2}
+              className={styles.productName}
             >
-              Название товара с гипперссылкой на него
+              {dillerProduct.name}
+              <p> {dillerProduct.price}</p>
             </a>
             <div className={styles.buttons}>
               <button
@@ -65,10 +60,24 @@ function MainPage() {
               >
                 Отложить
               </button>
-            </div>{' '}
+            </div>
           </div>
         </div>
       </div>
+      <div className={styles.buttonsResult}>
+        <button
+          className={styles.buttonResult}
+          onClick={() => console.log('Button pressed')}
+        >
+          Результаты
+        </button>
+        <button
+          className={styles.buttonResult}
+          onClick={() => console.log('Button pressed')}
+        >
+          Статистика
+        </button>
+      </div>{' '}
       {isResultOpen && (
         <Popup setIsOpen={setIsResultOpen}>{<p>Result Popup</p>}</Popup>
       )}

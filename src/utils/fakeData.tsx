@@ -35,3 +35,15 @@ export const itemsList = [
     link: 'https://xn--90afqsbambik.xn--p1ai/products/kraska-aura-golfstrom-9l-osoboprochnaya-dlya-vannoy-i-kukhni-toniruetsya-po-eskarocolor/',
   },
 ]
+
+export const dillers = [
+  { value: 'Ozon', label: 'Ozon' },
+  { value: 'Wb', label: 'Wb' },
+]
+
+export const dillerProduct = {
+  id: 6,
+  name: 'Cредство для чистки гриля и духовок Cooky Grill Gel, 5 л.',
+  link: 'https://www.ozon.ru/product/credstvo-dlya-chistki-grilya-i-duhovok-cooky-grill-gel-5-l-863572736/?asb=1R99B03mX0dAMw2CA6yWXGpwNdR%252FvutT0MmqlrbpGj0%253D&asb2=t0Mg-i0Hu281po03eUE0qOFR1ucX3EZR_W83XUbek9hJDERG8QHm2juDiI5BvJS2&avtc=1&avte=2&avts=1701242182&keywords=prosept+cooky+grill',
+  price: '1 319 ₽',
+}
