@@ -6,7 +6,7 @@
 }
 
 .search {
-  width: 300px;
+  width: 350px;
   padding: 10px;
   border: 0;
   outline: 0;
@@ -32,6 +32,7 @@
   scrollbar-width: thin;
   scrollbar-color: #d5eddd transparent;
   max-height: 300px;
+  height: 300px;
 }
 
 .blockFilter {

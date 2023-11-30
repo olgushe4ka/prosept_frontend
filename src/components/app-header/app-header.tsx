@@ -1,8 +1,8 @@
-import headerStyles from './app-header.module.css'
-import { Link, useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import a from '../../images/proseptLogo.webp'
-import MyDropdown from '../drop-down/drop-down'
+import { FaArrowDown } from 'react-icons/fa'
+import { Link, useLocation } from 'react-router-dom'
+import a from '../../images/prosept-logo.svg'
+import headerStyles from './app-header.module.css'
 
 function AppHeader() {
   const location = useLocation()
@@ -23,8 +23,6 @@ function AppHeader() {
     }
   }, [location.pathname])
 
-  console.log(activePage)
-
   return (
     <header className={`${headerStyles.header} pl-15 pr-15 pb-0 pt-0`}>
       <Link to="/" className={`${headerStyles.logo}`}>
@@ -39,17 +37,24 @@ function AppHeader() {
         >
           <p className={`${headerStyles.menuText}`}>Таблица</p>
         </Link> */}
-        <Link
+        {/* <Link
           to="/"
           className={`${headerStyles.menu} ${
             activePage === 'Главная' ? headerStyles.active : ''
           }`}
         >
           <p className={`${headerStyles.menuText}`}>Разметка товаров</p>
-        </Link>
-        <MyDropdown items={[]} onSelect={function (items: string | string[] | null): void {
-          throw new Error('Function not implemented.')
-        } } placeholder={'Выпадающее меню'} />
+        </Link> */}
+        {/* <MyDropdown
+          items={[]}
+          onSelect={function (items: string | string[] | null): void {
+            throw new Error('Function not implemented.')
+          }}
+          placeholder={'Выпадающее меню'}
+        /> */}
+        <span className={headerStyles.dropMenu}>
+          Выпадающее меню <FaArrowDown />
+        </span>
       </div>
     </header>
   )
