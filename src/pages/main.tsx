@@ -1,13 +1,16 @@
 import { useState } from 'react'
 import LeftWindow from '../components/left-window/left-window'
+import Popup from '../components/popup/popup'
 import styles from './main.module.css'
 import MyDropdown from '../components/drop-down/drop-down'
 import { dillerProduct, dillers } from '../utils/fakeData'
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
 
-
 function MainPage() {
   const [isDropdownItemSelected, setIsDropdownItemSelected] = useState(false)
+
+  const [isResultOpen, setIsResultOpen] = useState<boolean>(false) // по умолчанию false
+  const [isStatisticsOpen, setIsStatisticsOpen] = useState<boolean>(false)
 
   const handleDropdownSelect = (items: string | string[] | null) => {
     setIsDropdownItemSelected(true)
@@ -20,7 +23,11 @@ function MainPage() {
 
         <div className={styles.block2AndButtons}>
           <div className={styles.block2}>
-            <MyDropdown items={dillers} onSelect={handleDropdownSelect} placeholder={'Выберите дилера'} />
+            <MyDropdown
+              items={dillers}
+              onSelect={handleDropdownSelect}
+              placeholder={'Выберите дилера'}
+            />
             <div className={styles.arrows}>
               <FaArrowLeft />
               <FaArrowRight />
@@ -71,6 +78,12 @@ function MainPage() {
           Статистика
         </button>
       </div>{' '}
+      {isResultOpen && (
+        <Popup setIsOpen={setIsResultOpen}>{<p>Result Popup</p>}</Popup>
+      )}
+      {isStatisticsOpen && (
+        <Popup setIsOpen={setIsStatisticsOpen}>{<p>Statistics Popup</p>}</Popup>
+      )}
     </div>
   )
 }
