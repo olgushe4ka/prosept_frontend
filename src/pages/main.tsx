@@ -20,7 +20,7 @@ function MainPage() {
 
         <div className={styles.block2AndButtons}>
           <div className={styles.block2}>
-            <MyDropdown items={dillers} onSelect={handleDropdownSelect} />
+            <MyDropdown items={dillers} onSelect={handleDropdownSelect} placeholder={'Выберите дилера'} />
             <div className={styles.arrows}>
               <FaArrowLeft />
               <FaArrowRight />

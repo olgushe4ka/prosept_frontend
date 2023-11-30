@@ -2,6 +2,7 @@
   max-width: 80%;
   margin: auto;
   padding-top: 25px;
+  min-height: 70vh;
 }
 
 .main {
@@ -36,8 +37,9 @@
   color: grey;
 }
 
-.arrows svg:hover{
-opacity: 0.5;
+.arrows svg:hover {
+  cursor: pointer;
+  opacity: 0.5;
 }
 
 .productName {
@@ -64,7 +66,7 @@ opacity: 0.5;
 
 .buttonsResult {
   margin-top: 50px;
-  padding-top: 50px;
+  padding: 50px 0;
   text-align: center;
   border-top: 1px, solid, grey;
 }

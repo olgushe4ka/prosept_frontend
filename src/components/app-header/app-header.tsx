@@ -2,6 +2,7 @@ import headerStyles from './app-header.module.css'
 import { Link, useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import a from '../../images/proseptLogo.webp'
+import MyDropdown from '../drop-down/drop-down'
 
 function AppHeader() {
   const location = useLocation()
@@ -46,6 +47,9 @@ function AppHeader() {
         >
           <p className={`${headerStyles.menuText}`}>Разметка товаров</p>
         </Link>
+        <MyDropdown items={[]} onSelect={function (items: string | string[] | null): void {
+          throw new Error('Function not implemented.')
+        } } placeholder={'Выпадающее меню'} />
       </div>
     </header>
   )

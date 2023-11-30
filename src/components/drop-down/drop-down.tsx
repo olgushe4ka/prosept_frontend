@@ -2,11 +2,12 @@ import styles from './drop-down.module.css'
 import Select from 'react-select'
 
 interface SelectProps {
+  placeholder: string
   items: { value: string; label: string }[]
   onSelect: (items: string | string[] | null) => void
 }
 
-const MyDropdown: React.FC<SelectProps> = ({ items, onSelect }) => {
+const MyDropdown: React.FC<SelectProps> = ({ items, onSelect, placeholder }) => {
   const handleSelect = (selectedOptions: any) => {
     if (selectedOptions) {
       if (Array.isArray(selectedOptions)) {
@@ -41,7 +42,7 @@ const MyDropdown: React.FC<SelectProps> = ({ items, onSelect }) => {
       className={styles.main}
       options={items}
       onChange={handleSelect}
-      placeholder="Выберите диллера"
+      placeholder={placeholder}
       styles={customStyles}
       isClearable
       isMulti
