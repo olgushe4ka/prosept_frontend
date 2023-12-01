@@ -1,0 +1,50 @@
+.main {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.main th,
+.main td {
+  border: 1px solid #dddddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.main th {
+  background-color: #f2f2f2;
+}
+
+.button {
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: large;
+  margin-top: 10px;
+}
+
+.button:hover {
+  background-color: #45a049;
+}
+
+.deleteIcon {
+  border: none !important;
+}
+
+.deleteIcon button {
+  background: none;
+  border: none;
+  text-align: center;
+  &:hover {
+    cursor: pointer;
+    opacity: 0.6;
+  }
+  transition:
+    background-color 0.3s ease-in-out,
+    transform 0.2s ease-in-out;
+  &:active {
+    transform: scale(1.1);
+  }
+}
