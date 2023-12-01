@@ -36,12 +36,12 @@ export const itemsList = [
   },
 ]
 
-export const dillers = [
+export const dealers = [
   { value: 'Ozon', label: 'Ozon' },
   { value: 'Wb', label: 'Wb' },
 ]
 
-export const dillerProduct = {
+export const dealersProduct = {
   id: 6,
   name: 'Cредство для чистки гриля и духовок Cooky Grill Gel, 5 л.',
   link: 'https://www.ozon.ru/product/credstvo-dlya-chistki-grilya-i-duhovok-cooky-grill-gel-5-l-863572736/?asb=1R99B03mX0dAMw2CA6yWXGpwNdR%252FvutT0MmqlrbpGj0%253D&asb2=t0Mg-i0Hu281po03eUE0qOFR1ucX3EZR_W83XUbek9hJDERG8QHm2juDiI5BvJS2&avtc=1&avte=2&avts=1701242182&keywords=prosept+cooky+grill',

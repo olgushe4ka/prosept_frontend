@@ -1,7 +1,5 @@
 .app {
-  max-width: 80%;
-  margin: auto;
-  padding-top: 25px;
+  padding: 25px 130px 0;
   min-height: 70vh;
 }
 
@@ -13,77 +11,33 @@
   padding-top: 30px;
 }
 
-.block1 {
-  padding-right: 30px;
-  border-right: 1px solid gray;
-  min-width: 200px;
-  max-width: 300px;
-}
-
-.block2AndButtons {
-  padding-left: 30px;
-  flex-grow: 3;
-}
-.block2 {
-  min-height: 300px;
-  display: flex;
-  flex-direction: column;
-}
-
-.arrows {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 30px;
-  color: grey;
-}
-
-.arrows svg:hover {
-  cursor: pointer;
-  opacity: 0.5;
-}
-
-.productName {
-  margin-top: 45px;
-  text-decoration: none;
-  color: black;
-}
-
-.productName:hover {
-  cursor: pointer;
-}
-
-.buttons {
-  margin-top: 180px;
-}
-
-.button {
-  height: 30px;
-  margin-right: 50px;
-  min-width: 120px;
-  border: none;
-  border-radius: 5px;
-}
-
 .buttonsResult {
-  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  column-gap: 70px;
+  margin-top: 20px;
   padding: 50px 0;
   text-align: center;
-  border-top: 1px, solid, grey;
+  border-top: 1px solid hsl(0, 0%, 80%);
 }
 
 .buttonResult {
-  height: 30px;
-  margin-right: 50px;
-  min-width: 150px;
+  height: 50px;
+  min-width: 200px;
+  color: #7e9c88;
+  font-weight: 600;
   border: 1px solid #b5e0c3;
   border-radius: 5px;
   background-color: white;
+  font-size: 17px;
+  transition:
+    background-color 0.3s ease-in-out,
+    font-weight 0.3s ease-in-out;
 }
 
 .buttonResult:hover {
   cursor: pointer;
-  font-weight: 600;
-  background-color: #b5e0c3;
+  background-color: rgba(46, 125, 50, 0.07);
 }
 
 .myDropdown:hover {

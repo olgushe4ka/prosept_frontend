@@ -1,8 +1,4 @@
-body {
-  max-width: 1600px;
-  background-color: white;
-  color: black;
-  margin: 0;
+* {
   font-family:
     'Lato',
     -apple-system,
@@ -16,6 +12,12 @@ body {
     'Droid Sans',
     'Helvetica Neue',
     sans-serif;
+}
+body {
+  max-width: 1600px;
+  background-color: white;
+  color: black;
+  margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;

@@ -43,6 +43,14 @@
   font-weight: 800;
 }
 
+.dropMenu {
+  color: black;
+  font-size: 18px;
+}
+
+.dropMenu svg {
+  font-size: 12px;
+}
 
 @media (max-width: 770px) {
   .header {
