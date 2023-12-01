@@ -11,7 +11,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
+ }
 
 .popup {
   position: fixed;
@@ -23,6 +23,14 @@
   border-radius: 10px;
   min-width: 500px;
   min-height: 300px;
+  max-width: 90%;
+  max-height: 90%;
+  overflow-y: auto; 
+}
+
+.content {
+  overflow-y: auto;
+  max-height: 100%; 
 }
 
 .close {

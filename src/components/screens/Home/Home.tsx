@@ -7,6 +7,7 @@ import Popup from '../../ui/Popup/Popup'
 
 import LeftWindow from './LeftWindow/LeftWindow'
 import RightWindow from './RightWindow/RightWindow'
+import Results from '../Results/Results'
 
 function Home() {
   const [isResultOpen, setIsResultOpen] = useState<boolean>(false)
@@ -34,7 +35,7 @@ function Home() {
           </button>
         </div>
         {isResultOpen && (
-          <Popup setIsOpen={setIsResultOpen}>{<p>Result Popup</p>}</Popup>
+          <Popup setIsOpen={setIsResultOpen}><Results/></Popup>
         )}
         {isStatisticsOpen && (
           <Popup setIsOpen={setIsStatisticsOpen}>
