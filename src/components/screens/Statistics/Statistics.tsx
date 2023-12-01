@@ -1,3 +1,7 @@
+import { useState } from 'react'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+
 import styles from './Statistics.module.scss'
 
 import { statisticAverage, statisticData } from './statistic-test-data'
@@ -43,8 +47,30 @@ const Statistics = () => {
     }
   ]
 
+  const [startDate, setStartDate] = useState(new Date())
+  const [endDate, setEndDate] = useState(new Date())
+
   return (
     <div className={styles.main}>
+      <div className={styles.datePicker}>
+        Выберите дату: 
+        <DatePicker
+          selected={startDate}
+          onChange={(date: Date | null) => setStartDate(date || new Date())}
+          selectsStart
+          startDate={startDate}
+          endDate={endDate}
+        />
+        <DatePicker
+          selected={endDate}
+          onChange={(date: Date | null) => setEndDate(date || new Date())}
+          selectsEnd
+          startDate={startDate}
+          endDate={endDate}
+          minDate={startDate}
+        />
+      </div>
+
       <table className={styles.statistic}>
         <thead>
           <tr>
