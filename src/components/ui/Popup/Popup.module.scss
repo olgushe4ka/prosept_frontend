@@ -25,15 +25,17 @@
   min-height: 300px;
   max-width: 90%;
   max-height: 90%;
-  overflow-y: auto; 
 }
 
 .content {
+  max-height: calc(100% - 30px);
   overflow-y: auto;
-  max-height: 100%; 
+  padding: 50px;
+  box-sizing: border-box;
 }
 
 .close {
+  z-index: 2;
   position: absolute;
   top: -40px;
   right: -40px;

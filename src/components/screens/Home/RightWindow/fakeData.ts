@@ -11,7 +11,7 @@ export interface Item {
 export const itemsList = [
   {
     id: 1,
-    name: 'Банка краска 5л 0Банка краска 5л 0Банка краска 5л 0Банка краска 5л 0Банка краска 5л 0Банка краска 5л 0Банка краска 5л 0Банка краска 5л 0Банка краска 5л 0Банка краска 5л 0',
+    name: 'Банка краска 5л 0Банка краска 50Баска 5л 0Банка краска 5л 0',
     link: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSj_Oes9XV0wflizXA3YM_o1JHiAHGCORvjln6_7Nvn&s',
     status: "Да",
     produtMap: "Банка краска 5л ",
@@ -27,7 +27,7 @@ export const itemsList = [
   },
   {
     id: 3,
-    name: 'Банка краска 5л 2 Банка краска 5л 2Банка краска 5л 2Банка краска 5л 2Банка краска 5л 2',
+    name: 'Банка краска 5л 2 Банка краска 5л 2Банка ка краска 5л 2',
     link: 'https://www.ozon.ru/category/emal-pf115-5-l/',
     status: "Отложить",
     produtMap: "",
@@ -67,7 +67,7 @@ export const itemsList = [
   },
   {
     id: 8,
-    name: 'Банка краска 5л 0Банка краска 5л 0Банка краска 5л 0Банка краска 5л 0Банка краска 5л 0Банка краска 5л 0Банка краска 5л 0Банка краска 5л 0Банка краска 5л 0Банка краска 5л 0',
+    name: 'Банка крас краска 5л 0Банка краска 5л 0Банка краска 5л 0',
     link: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSj_Oes9XV0wflizXA3YM_o1JHiAHGCORvjln6_7Nvn&s',
     status: "Да",
     produtMap: "Банка краска 5л ",
@@ -83,7 +83,7 @@ export const itemsList = [
   },
   {
     id: 10,
-    name: 'Банка краска 5л 2 Банка краска 5л 2Банка краска 5л 2Банка краска 5л 2Банка краска 5л 2',
+    name: 'Банка краска 5л 2 Банка 5л 2Банка краска 5л 2',
     link: 'https://www.ozon.ru/category/emal-pf115-5-l/',
     status: "Отложить",
     produtMap: "",

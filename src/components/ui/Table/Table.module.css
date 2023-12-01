@@ -33,7 +33,18 @@
   border: none !important;
 }
 
-.deleteIcon:hover {
-  cursor: pointer;
-  opacity: 0.6;
+.deleteIcon button {
+  background: none;
+  border: none;
+  text-align: center;
+  &:hover {
+    cursor: pointer;
+    opacity: 0.6;
+  }
+  transition:
+    background-color 0.3s ease-in-out,
+    transform 0.2s ease-in-out;
+  &:active {
+    transform: scale(1.1);
+  }
 }

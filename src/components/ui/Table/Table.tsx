@@ -1,7 +1,8 @@
+import { MdDeleteOutline } from 'react-icons/md'
 import * as XLSX from 'xlsx'
 
 import { Item } from '../../screens/Home/RightWindow/fakeData'
-import { MdDeleteOutline } from "react-icons/md";
+
 import styles from './Table.module.css'
 
 interface TableProps {
@@ -21,11 +22,11 @@ const Table: React.FC<TableProps> = ({ data }) => {
       <table className={styles.main}>
         <thead>
           <tr>
-            <th>Номер</th>
+            <th>№</th>
             <th>Товар производителя</th>
             <th>Соответствие</th>
             <th>Статус</th>
-            <th>Порядковый номер</th>
+            <th>Порядковый №</th>
           </tr>
         </thead>
         <tbody>
@@ -37,11 +38,12 @@ const Table: React.FC<TableProps> = ({ data }) => {
               <td>{item.status}</td>
               <td>{item.numberInList}</td>
               <td className={styles.deleteIcon}>
-                <MdDeleteOutline />
+                <button>
+                  <MdDeleteOutline />
+                </button>
               </td>
             </tr>
           ))}
-
         </tbody>
       </table>
       <button className={styles.button} onClick={exportToExcel}>
