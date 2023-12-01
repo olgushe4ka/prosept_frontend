@@ -1,24 +1,28 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
 
 import styles from './RightWindow.module.scss'
 
 import DropDown from '../../../ui/DropDown/DropDown'
+import { dealers, dealersProduct } from './fakeData'
 
-import { dealers, dealersProduct } from './fakeData.ts'
+
 
 const RightWindow: FC = () => {
-  const [isDropdownItemSelected, setIsDropdownItemSelected] =
-    useState<boolean>(false)
 
-  const handleDropdownSelect = (items: string | string[] | null) => {
-    setIsDropdownItemSelected(true)
-  }
+  // const [isDropdownItemSelected, setIsDropdownItemSelected] =
+  //   useState<boolean>(false)
+
+  // const handleDropdownSelect = (items: string | string[] | null) => {
+  //   setIsDropdownItemSelected(true)
+  // }
+
+  
   return (
     <section className={styles.rightWindow}>
       <DropDown
         items={dealers}
-        onSelect={handleDropdownSelect}
+        onSelect={() => console.log()}
         placeholder={'Выберите дилера'}
       />
       <div className={styles.card}>
