@@ -23,7 +23,7 @@ const Table: React.FC<TableProps> = ({ data }) => {
           <tr>
             <th>Номер</th>
             <th>Товар производителя</th>
-            <th>Соответсвие</th>
+            <th>Соответствие</th>
             <th>Статус</th>
             <th>Порядковый номер</th>
           </tr>

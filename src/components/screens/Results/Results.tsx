@@ -1,4 +1,4 @@
-import Table from '../../ui/Table/table'
+import Table from '../../ui/Table/Table'
 import { itemsList } from '../Home/RightWindow/fakeData'
 
 import styles from './Results.module.css'
