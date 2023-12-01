@@ -23,6 +23,12 @@
   border-radius: 10px;
   min-width: 500px;
   min-height: 300px;
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.content {
+  max-height: 100%; 
 }
 
 .close {

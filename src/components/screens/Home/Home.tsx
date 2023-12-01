@@ -4,6 +4,7 @@ import styles from './Home.module.scss'
 
 import Layout from '../../layout/Layout'
 import Popup from '../../ui/Popup/Popup'
+import Statistics from '../Statistics/Statistics'
 
 import LeftWindow from './LeftWindow/LeftWindow'
 import RightWindow from './RightWindow/RightWindow'
@@ -38,7 +39,7 @@ function Home() {
         )}
         {isStatisticsOpen && (
           <Popup setIsOpen={setIsStatisticsOpen}>
-            {<p>Statistics Popup</p>}
+            <Statistics />
           </Popup>
         )}
       </>

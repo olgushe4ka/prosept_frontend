@@ -35,7 +35,7 @@ const Popup: FC<IPopup> = ({ children, setIsOpen }) => {
         >
           <MdClose />
         </button>
-        {children}
+        <div className={styles.content}> {children} </div>
       </div>
     </section>
   )
