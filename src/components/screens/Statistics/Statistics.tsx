@@ -1,10 +1,13 @@
+import ru from 'date-fns/locale/ru'
 import { useState } from 'react'
-import DatePicker from 'react-datepicker'
+import DatePicker, { registerLocale } from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
 import styles from './Statistics.module.scss'
 
 import { statisticAverage, statisticData } from './statistic-test-data'
+
+registerLocale('ru', ru)
 
 const Statistics = () => {
   const calculatePercentage = (value: number, total: number) =>
@@ -52,23 +55,33 @@ const Statistics = () => {
 
   return (
     <div className={styles.main}>
-      <div className={styles.datePicker}>
-        Выберите дату: 
-        <DatePicker
-          selected={startDate}
-          onChange={(date: Date | null) => setStartDate(date || new Date())}
-          selectsStart
-          startDate={startDate}
-          endDate={endDate}
-        />
-        <DatePicker
-          selected={endDate}
-          onChange={(date: Date | null) => setEndDate(date || new Date())}
-          selectsEnd
-          startDate={startDate}
-          endDate={endDate}
-          minDate={startDate}
-        />
+      <h2>Статистика</h2>
+      <div className={styles.datePickers}>
+        <p>Выберите дату</p>
+        <div className={styles.datePickerDateBox}>
+          <DatePicker
+            selected={startDate}
+            onChange={(date: Date | null) => setStartDate(date || new Date())}
+            selectsStart
+            startDate={startDate}
+            endDate={endDate}
+            locale="ru"
+            dateFormat="d MMMM, yyyy"
+            wrapperClassName={styles.datePicker}
+          />
+
+          <DatePicker
+            selected={endDate}
+            onChange={(date: Date | null) => setEndDate(date || new Date())}
+            selectsEnd
+            startDate={startDate}
+            endDate={endDate}
+            minDate={startDate}
+            locale="ru"
+            dateFormat="d MMMM, yyyy"
+            wrapperClassName={styles.datePicker}
+          />
+        </div>
       </div>
 
       <table className={styles.statistic}>
@@ -99,9 +112,8 @@ const Statistics = () => {
         <tbody>
           {statisticAverage.map((item, index: number) => (
             <tr key={index}>
-              <td>Выбран раз товар №</td>
-              <td>{item.itemNumber}</td>
-              <td>{item.itemCount}</td>
+              <td>Товар, с порядковым номером {item.itemNumber} выбран</td>
+              <td>{item.itemCount} раз</td>
             </tr>
           ))}
         </tbody>
