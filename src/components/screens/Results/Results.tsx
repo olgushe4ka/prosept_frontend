@@ -9,23 +9,26 @@ interface ResultsConfig {
   allDealersProducts: Array<DealerProductConfig>
 }
 
-const Results: FC<ResultsConfig> = ({ allDealersProducts }) {
+const Results: FC<ResultsConfig> = ({ allDealersProducts }) => {
+  // Function to format the current date as "25.12.2023"
+  const formatDate = () => {
+    const today = new Date()
+    const options = {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    } as Intl.DateTimeFormatOptions
+    return new Intl.DateTimeFormat('ru-RU', options).format(today)
+  }
 
-// Function to format the current date as "25.12.2023"
-const formatDate = () => {
-  const today = new Date();
-  const options = { day: '2-digit', month: '2-digit', year: 'numeric' } as Intl.DateTimeFormatOptions;
-  return new Intl.DateTimeFormat('ru-RU', options).format(today);
-};
-
-const itemsList = allDealersProducts.map(product => ({
-  id: product.id,
-  name: product.product_name,
-  link: product.product_url,
-  status: product.status,
-  productMap: '—',
-  numberInList: '—'
-}))
+  const itemsList = allDealersProducts.map(product => ({
+    id: product.id,
+    name: product.product_name,
+    link: product.product_url,
+    status: product.status,
+    productMap: '—',
+    numberInList: '—'
+  }))
 
   return (
     <div className={`${styles.resultPage}`}>
