@@ -1,9 +1,9 @@
 import { MdDeleteOutline } from 'react-icons/md'
 import * as XLSX from 'xlsx'
 
-import { Item } from '../../screens/Home/RightWindow/fakeData'
+import styles from './Table.module.scss'
 
-import styles from './Table.module.css'
+import { Item } from '../../screens/Home/RightWindow/fakeData'
 
 interface TableProps {
   data: Item[]

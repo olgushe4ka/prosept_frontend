@@ -4,11 +4,11 @@ import styles from './Home.module.scss'
 
 import Layout from '../../layout/Layout'
 import Popup from '../../ui/Popup/Popup'
+import Results from '../Results/Results'
 import Statistics from '../Statistics/Statistics'
 
 import LeftWindow from './LeftWindow/LeftWindow'
 import RightWindow from './RightWindow/RightWindow'
-import Results from '../Results/Results'
 
 function Home() {
   const [isResultOpen, setIsResultOpen] = useState<boolean>(false)
@@ -36,7 +36,9 @@ function Home() {
           </button>
         </div>
         {isResultOpen && (
-          <Popup setIsOpen={setIsResultOpen}><Results/></Popup>
+          <Popup setIsOpen={setIsResultOpen}>
+            <Results />
+          </Popup>
         )}
         {isStatisticsOpen && (
           <Popup setIsOpen={setIsStatisticsOpen}>

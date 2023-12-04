@@ -60,7 +60,7 @@ const Statistics = () => {
 
   // const weightedTotal = statistic.reduce((acc, item) => acc + item.weight, 0)
 
-  const percentageData = statistic.map((item) => item.percent);
+  const percentageData = statistic.map(item => item.percent)
 
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
@@ -69,7 +69,7 @@ const Statistics = () => {
     <div className={styles.main}>
       <h2>Статистика</h2>
       <div className={styles.datePickers}>
-        <p>Выберите дату</p>
+        <p>Выберите дату "от" и "до"</p>
         <div className={styles.datePickerDateBox}>
           <DatePicker
             selected={startDate}
@@ -80,6 +80,8 @@ const Statistics = () => {
             locale="ru"
             dateFormat="d MMMM, yyyy"
             wrapperClassName={styles.datePicker}
+            placeholderText="от"
+            maxDate={new Date()}
           />
 
           <DatePicker
@@ -92,6 +94,8 @@ const Statistics = () => {
             locale="ru"
             dateFormat="d MMMM, yyyy"
             wrapperClassName={styles.datePicker}
+            placeholderText="до"
+            maxDate={new Date()}
           />
         </div>
       </div>
@@ -129,13 +133,11 @@ const Statistics = () => {
         </tbody>
       </table>
 
-
       <div className={styles.chartContainer}>
         <div className={styles.chart}>
           <div className={styles.text}>{percentageData[0]}%</div>
         </div>
       </div>
-
 
       <div className={styles.average}>
         <p>Средний порядковый номер по ответу "Да"</p>
@@ -145,8 +147,8 @@ const Statistics = () => {
       <table className={styles.statisticAverage}>
         <thead>
           <tr>
-            <th>Порядковый номер </th>
-            <th>Количество выбранных раз</th>
+            <th>Порядковый № </th>
+            <th>Кол-во выбранных раз</th>
           </tr>
         </thead>
         <tbody>
