@@ -18,7 +18,7 @@ function Results() {
   return (
     <div className={`${styles.resultPage}`}>
       <div className={styles.datePickerContainer}>
-        <p>Результаты за сегодня ({formatDate()})</p>
+        <h3>Результаты за сегодня ({formatDate()})</h3>
       </div>
       <div className={styles.datePickerContainer}></div>
       <Table data={itemsList} />

@@ -67,7 +67,7 @@ const Statistics = () => {
 
   return (
     <div className={styles.main}>
-      <h2>Статистика</h2>
+      <h3>Статистика</h3>
       <div className={styles.datePickers}>
         <p>Выберите дату "от" и "до"</p>
         <div className={styles.datePickerDateBox}>
