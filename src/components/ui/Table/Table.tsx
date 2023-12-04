@@ -3,8 +3,6 @@ import * as XLSX from 'xlsx'
 
 import styles from './Table.module.scss'
 
-import { Item } from '../../screens/Home/RightWindow/fakeData'
-
 interface TableProps {
   data: Item[]
 }
@@ -34,7 +32,7 @@ const Table: React.FC<TableProps> = ({ data }) => {
             <tr key={index}>
               <td>{item.id}</td>
               <td>{item.name}</td>
-              <td>{item.produtMap}</td>
+              <td>{item.productMap}</td>
               <td>{item.status}</td>
               <td>{item.numberInList}</td>
               <td className={styles.deleteIcon}>

@@ -1,20 +1,26 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import styles from './LeftWindow.module.scss'
 
+import { CompanyProductConfig } from '../Home.interface.js'
+
+import { LeftWindowConfig } from './LeftWindow.interface.js'
 import ProseptItem from './ProseptItem/ProseptItem.js'
-import { goods } from './test-data/goods.js'
 
-interface IGoods {
-  article: string
-  name: string
-}
-
-const LeftWindow: FC = () => {
+const LeftWindow: FC<LeftWindowConfig> = ({
+  allCompanyProducts,
+  selectedGood,
+  setSelectedGood
+}) => {
   const [goodsQuantity, setGoodsQuantity] = useState<number>(5) //количество отображаемых товаров
   const [searchRequest, setSearchRequest] = useState<string>('') //поисковый запрос
-  const [searchGoods, setSearchGoods] = useState<IGoods[]>(goods) //найденные товары
-  const [selectedGood, setSelectedGood] = useState<string>('') //храним артикул
+  const [searchGoods, setSearchGoods] =
+    useState<Array<CompanyProductConfig>>(allCompanyProducts) //найденные товары
+
+  useEffect(() => {
+    setSearchGoods(allCompanyProducts)
+  }, [allCompanyProducts])
+
   return (
     <section className={styles.leftWindow}>
       <input
@@ -24,7 +30,7 @@ const LeftWindow: FC = () => {
         onInput={evt => {
           const target = evt.target as HTMLInputElement
           setSearchRequest(target.value)
-          const newGoods = goods.filter(
+          const newGoods = allCompanyProducts.filter(
             good =>
               good.article.toLowerCase().includes(target.value.toLowerCase()) ||
               good.name.toLowerCase().includes(target.value.toLowerCase())
@@ -54,6 +60,7 @@ const LeftWindow: FC = () => {
             article={good.article}
             name={good.name}
             selectedGood={selectedGood}
+            productId={good.id}
             setSelectedGood={setSelectedGood}
           />
         ))}

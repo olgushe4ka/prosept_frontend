@@ -1,19 +1,35 @@
-import ru from 'date-fns/locale/ru'
-import { useState } from 'react'
-import DatePicker, { registerLocale } from 'react-datepicker'
+import { FC, useState } from 'react'
+import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
 import styles from './Statistics.module.scss'
 
-import { statisticAverage, statisticData } from './statistic-test-data'
+import { StatisticConfig } from './Statistic.interface'
+import { statisticAverage } from './statistic-test-data'
 
-registerLocale('ru', ru)
+interface statisticDataConfig {
+  markup: number
+  unclaimed: number
+  postponed: number
+  waiting: number
+}
 
-const Statistics = () => {
+const Statistics: FC<StatisticConfig> = ({ allDealersProducts }) => {
+  const statisticData: statisticDataConfig = {
+    markup: 0,
+    unclaimed: 0,
+    postponed: 0,
+    waiting: 0
+  }
+  for (const product of allDealersProducts) {
+    statisticData[product.status as keyof statisticDataConfig] += 1
+  }
+
   const calculatePercentage = (value: number, total: number) =>
     (value / total) * 100
 
-  const total = statisticData.no + statisticData.later + statisticData.yes
+  const total =
+    statisticData.unclaimed + statisticData.postponed + statisticData.markup
 
   const calculateAverage = (
     data: { itemNumber: number; itemCount: number }[]
@@ -30,22 +46,22 @@ const Statistics = () => {
   const statistic = [
     {
       name: 'Да',
-      number: statisticData.yes,
-      percent: calculatePercentage(statisticData.yes, total),
+      number: statisticData.markup,
+      percent: calculatePercentage(statisticData.markup, total),
       confidenceLevel: 'Bысокий',
       weight: 1.5
     },
     {
       name: 'Нет',
-      number: statisticData.no,
-      percent: calculatePercentage(statisticData.no, total),
+      number: statisticData.unclaimed,
+      percent: calculatePercentage(statisticData.unclaimed, total),
       confidenceLevel: 'Средний',
       weight: 1
     },
     {
       name: 'Отложить',
-      number: statisticData.later,
-      percent: calculatePercentage(statisticData.later, total),
+      number: statisticData.postponed,
+      percent: calculatePercentage(statisticData.postponed, total),
       confidenceLevel: 'Низкий',
       weight: 0.5
     },
@@ -57,7 +73,6 @@ const Statistics = () => {
       weight: 4
     }
   ]
-
   // const weightedTotal = statistic.reduce((acc, item) => acc + item.weight, 0)
 
   const percentageData = statistic.map(item => item.percent)

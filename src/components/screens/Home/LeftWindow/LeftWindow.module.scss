@@ -1,3 +1,5 @@
+@import 'src/styles/variables';
+
 .leftWindow {
   display: flex;
   flex-direction: column;
@@ -17,7 +19,7 @@
 }
 
 .search:focus {
-  border-bottom: 1px solid #b5e0c3;
+  border-bottom: 1px solid $light-green;
 }
 
 .list {
@@ -30,7 +32,7 @@
   row-gap: 7px;
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: #d5eddd transparent;
+  scrollbar-color: $scrollbar transparent;
   max-height: 300px;
   height: 300px;
 }

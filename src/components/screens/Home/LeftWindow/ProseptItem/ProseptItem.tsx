@@ -5,15 +5,17 @@ import styles from './ProseptItem.module.scss'
 interface IProseptItem {
   article: string
   name: string
-  setSelectedGood: (good: string) => void
-  selectedGood: string
+  setSelectedGood: (good: number | null) => void
+  selectedGood: number | null
+  productId: number
 }
 
 const ProseptItem: FC<IProseptItem> = ({
   article,
   name,
   setSelectedGood,
-  selectedGood
+  selectedGood,
+  productId
 }) => {
   return (
     <li>
@@ -22,12 +24,13 @@ const ProseptItem: FC<IProseptItem> = ({
         type="radio"
         name="item"
         id={article}
+        checked={selectedGood === productId ? true : false}
         onClick={evt => {
-          setSelectedGood(article)
+          setSelectedGood(productId)
           const target = evt.target as HTMLInputElement
-          if (selectedGood === article) {
+          if (selectedGood === productId) {
             target.checked = false
-            setSelectedGood('')
+            setSelectedGood(null)
           }
         }}
       />

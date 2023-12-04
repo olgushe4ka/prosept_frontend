@@ -1,24 +1,27 @@
 @import 'src/styles/variables';
 
-.main {
-  max-width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding-top: 30px;
+.blackButton {
+  padding: 0;
+  outline: 0;
+  height: 50px;
+  min-width: 140px;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  font-weight: 600;
+  background-color: transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease-in-out,
+    transform 0.2s ease-in-out;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+  &:active {
+    transform: scale(1.1);
+  }
 }
 
-.buttonsResult {
-  display: flex;
-  justify-content: center;
-  column-gap: 70px;
-  margin-top: 20px;
-  padding: 50px 0;
-  text-align: center;
-  border-top: 1px solid hsl(0, 0%, 80%);
-}
-
-.buttonResult {
+.greenButton {
   height: 50px;
   min-width: 200px;
   color: #7e9c88;
@@ -37,9 +40,4 @@
   &:active {
     transform: scale(1.1);
   }
-}
-
-.selectedItem {
-  font-weight: 700;
-  font-size: larger;
 }
