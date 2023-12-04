@@ -47,47 +47,72 @@ const Statistics: FC<StatisticConfig> = ({ allDealersProducts }) => {
     {
       name: 'Да',
       number: statisticData.markup,
-      percent: calculatePercentage(statisticData.markup, total)
+      percent: calculatePercentage(statisticData.markup, total),
+      confidenceLevel: 'Bысокий',
+      weight: 1.5
     },
     {
       name: 'Нет',
       number: statisticData.unclaimed,
-      percent: calculatePercentage(statisticData.unclaimed, total)
+      percent: calculatePercentage(statisticData.unclaimed, total),
+      confidenceLevel: 'Средний',
+      weight: 1
     },
     {
       name: 'Отложить',
       number: statisticData.postponed,
-      percent: calculatePercentage(statisticData.postponed, total)
+      percent: calculatePercentage(statisticData.postponed, total),
+      confidenceLevel: 'Низкий',
+      weight: 0.5
     },
     {
       name: 'Всего',
       number: total,
-      percent: 100
+      percent: 100,
+      confidenceLevel: '',
+      weight: 4
     }
   ]
+  // const weightedTotal = statistic.reduce((acc, item) => acc + item.weight, 0)
+
+  const percentageData = statistic.map(item => item.percent)
 
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
 
   return (
     <div className={styles.main}>
-      <div className={styles.datePicker}>
-        Выберите дату:
-        <DatePicker
-          selected={startDate}
-          onChange={(date: Date | null) => setStartDate(date || new Date())}
-          selectsStart
-          startDate={startDate}
-          endDate={endDate}
-        />
-        <DatePicker
-          selected={endDate}
-          onChange={(date: Date | null) => setEndDate(date || new Date())}
-          selectsEnd
-          startDate={startDate}
-          endDate={endDate}
-          minDate={startDate}
-        />
+      <h3>Статистика</h3>
+      <div className={styles.datePickers}>
+        <p>Выберите дату "от" и "до"</p>
+        <div className={styles.datePickerDateBox}>
+          <DatePicker
+            selected={startDate}
+            onChange={(date: Date | null) => setStartDate(date || new Date())}
+            selectsStart
+            startDate={startDate}
+            endDate={endDate}
+            locale="ru"
+            dateFormat="d MMMM, yyyy"
+            wrapperClassName={styles.datePicker}
+            placeholderText="от"
+            maxDate={new Date()}
+          />
+
+          <DatePicker
+            selected={endDate}
+            onChange={(date: Date | null) => setEndDate(date || new Date())}
+            selectsEnd
+            startDate={startDate}
+            endDate={endDate}
+            minDate={startDate}
+            locale="ru"
+            dateFormat="d MMMM, yyyy"
+            wrapperClassName={styles.datePicker}
+            placeholderText="до"
+            maxDate={new Date()}
+          />
+        </div>
       </div>
 
       <table className={styles.statistic}>
@@ -96,6 +121,10 @@ const Statistics: FC<StatisticConfig> = ({ allDealersProducts }) => {
             <th></th>
             <th>Количество</th>
             <th>Процент</th>
+            {/* <th>Уровень достоверности</th>
+            <th>Вес</th>
+            <th>Взвешенное количество</th>
+            <th>Взвешенный процент</th> */}
           </tr>
         </thead>
         <tbody>
@@ -104,10 +133,26 @@ const Statistics: FC<StatisticConfig> = ({ allDealersProducts }) => {
               <td>{item.name}</td>
               <td>{item.number}</td>
               <td>{item.percent}%</td>
+              {/* <td>{item.confidenceLevel}</td>
+              <td>{item.weight}</td>
+              <td>{item.weight * item.number}</td>
+              <td>
+                {calculatePercentage(
+                  item.weight * item.number,
+                  weightedTotal
+                ).toFixed(2)}
+                %
+              </td> */}
             </tr>
           ))}
         </tbody>
       </table>
+
+      <div className={styles.chartContainer}>
+        <div className={styles.chart}>
+          <div className={styles.text}>{percentageData[0]}%</div>
+        </div>
+      </div>
 
       <div className={styles.average}>
         <p>Средний порядковый номер по ответу "Да"</p>
@@ -115,11 +160,16 @@ const Statistics: FC<StatisticConfig> = ({ allDealersProducts }) => {
       </div>
 
       <table className={styles.statisticAverage}>
+        <thead>
+          <tr>
+            <th>Порядковый № </th>
+            <th>Кол-во выбранных раз</th>
+          </tr>
+        </thead>
         <tbody>
           {statisticAverage.map((item, index: number) => (
             <tr key={index}>
-              <td>Выбран раз товар №</td>
-              <td>{item.itemNumber}</td>
+              <td>{item.itemNumber} </td>
               <td>{item.itemCount}</td>
             </tr>
           ))}
