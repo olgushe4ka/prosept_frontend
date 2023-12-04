@@ -3,69 +3,92 @@ import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
 
 import styles from './RightWindow.module.scss'
 
+import Button from '../../../ui/Button/Button'
 import DropDown from '../../../ui/DropDown/DropDown'
-import { dealers, dealersProduct } from './fakeData'
 
+import { IRightWindow } from './RightWindow.interface'
 
-
-const RightWindow: FC = () => {
-
-  // const [isDropdownItemSelected, setIsDropdownItemSelected] =
-  //   useState<boolean>(false)
-
-  // const handleDropdownSelect = (items: string | string[] | null) => {
-  //   setIsDropdownItemSelected(true)
-  // }
-
-  
+const RightWindow: FC<IRightWindow> = ({
+  allDealers,
+  setDealersProductsList,
+  dealersProductsList,
+  onClickMarkup
+}) => {
   return (
     <section className={styles.rightWindow}>
       <DropDown
-        items={dealers}
-        onSelect={() => console.log()}
+        items={allDealers.map(dealer => ({
+          value: dealer.name,
+          label: dealer.name
+        }))}
+        onSelect={newValue => {
+          setDealersProductsList(
+            allDealers
+              .filter(dealer => newValue?.includes(dealer.name))
+              .map(dealer => dealer.dealer_product)
+              .flat()
+          )
+        }}
         placeholder={'Выберите дилера'}
       />
       <div className={styles.card}>
-        <div className={styles.good}>
-          <button className={styles.arrow}>
-            <FaArrowLeft />
-          </button>
-          <a
-            href={dealersProduct.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.productName}
-            title="Открыть страницу товара"
-          >
-            {dealersProduct.name}
-            <p> {dealersProduct.price}</p>
-          </a>
-          <button className={styles.arrow}>
-            <FaArrowRight />
-          </button>
-        </div>
-
+        {dealersProductsList[0] && (
+          <div className={styles.good}>
+            <button className={styles.arrow}>
+              <FaArrowLeft />
+            </button>
+            <a
+              href={dealersProductsList[0].product_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.productName}
+              title="Открыть страницу товара"
+            >
+              {dealersProductsList[0].product_name}
+              <p>{dealersProductsList[0].price}</p>
+            </a>
+            <button className={styles.arrow}>
+              <FaArrowRight />
+            </button>
+          </div>
+        )}
         <div className={styles.buttons}>
-          <button
-            className={styles.button}
+          <Button
+            style="black"
             onClick={() => {
-              console.log('Button pressed')
+              onClickMarkup({
+                dealer_product_id: dealersProductsList[0].id,
+                dealer_id: dealersProductsList[0].dealer_id,
+                status: 'markup'
+              })
+              setDealersProductsList(dealersProductsList.slice(1))
             }}
-          >
-            Да
-          </button>
-          <button
-            className={styles.button}
-            onClick={() => console.log('Button pressed')}
-          >
-            Нет
-          </button>
-          <button
-            className={styles.button}
-            onClick={() => console.log('Button pressed')}
-          >
-            Отложить
-          </button>
+            text="Да"
+          />
+          <Button
+            style="black"
+            onClick={() => {
+              onClickMarkup({
+                dealer_product_id: dealersProductsList[0].id,
+                dealer_id: dealersProductsList[0].dealer_id,
+                status: 'unclaimed'
+              })
+              setDealersProductsList(dealersProductsList.slice(1))
+            }}
+            text="Нет"
+          />
+          <Button
+            style="black"
+            onClick={() => {
+              onClickMarkup({
+                dealer_product_id: dealersProductsList[0].id,
+                dealer_id: dealersProductsList[0].dealer_id,
+                status: 'postponed'
+              })
+              setDealersProductsList(dealersProductsList.slice(1))
+            }}
+            text="Отложить"
+          />
         </div>
       </div>
     </section>

@@ -1,16 +1,34 @@
+import { FC } from 'react'
+
+import styles from './Results.module.scss'
+
 import Table from '../../ui/Table/Table'
-import { itemsList } from '../Home/RightWindow/fakeData'
+import { DealerProductConfig } from '../Home/Home.interface'
 
-import styles from './Results.module.css'
+interface ResultsConfig {
+  allDealersProducts: Array<DealerProductConfig>
+}
 
-function Results() {
+const Results: FC<ResultsConfig> = ({ allDealersProducts }) => {
+  // Function to format the current date as "25.12.2023"
+  const formatDate = () => {
+    const today = new Date()
+    const options = {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    } as Intl.DateTimeFormatOptions
+    return new Intl.DateTimeFormat('ru-RU', options).format(today)
+  }
 
-// Function to format the current date as "25.12.2023"
-const formatDate = () => {
-  const today = new Date();
-  const options = { day: '2-digit', month: '2-digit', year: 'numeric' } as Intl.DateTimeFormatOptions;
-  return new Intl.DateTimeFormat('ru-RU', options).format(today);
-};
+  const itemsList = allDealersProducts.map(product => ({
+    id: product.id,
+    name: product.product_name,
+    link: product.product_url,
+    status: product.status,
+    productMap: '—',
+    numberInList: '—'
+  }))
 
   return (
     <div className={`${styles.resultPage}`}>

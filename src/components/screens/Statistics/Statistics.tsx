@@ -1,16 +1,35 @@
-import { useState } from 'react'
+import { FC, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
 import styles from './Statistics.module.scss'
 
-import { statisticAverage, statisticData } from './statistic-test-data'
+import { StatisticConfig } from './Statistic.interface'
+import { statisticAverage } from './statistic-test-data'
 
-const Statistics = () => {
+interface statisticDataConfig {
+  markup: number
+  unclaimed: number
+  postponed: number
+  waiting: number
+}
+
+const Statistics: FC<StatisticConfig> = ({ allDealersProducts }) => {
+  const statisticData: statisticDataConfig = {
+    markup: 0,
+    unclaimed: 0,
+    postponed: 0,
+    waiting: 0
+  }
+  for (const product of allDealersProducts) {
+    statisticData[product.status as keyof statisticDataConfig] += 1
+  }
+
   const calculatePercentage = (value: number, total: number) =>
     (value / total) * 100
 
-  const total = statisticData.no + statisticData.later + statisticData.yes
+  const total =
+    statisticData.unclaimed + statisticData.postponed + statisticData.markup
 
   const calculateAverage = (
     data: { itemNumber: number; itemCount: number }[]
@@ -27,18 +46,18 @@ const Statistics = () => {
   const statistic = [
     {
       name: 'Да',
-      number: statisticData.yes,
-      percent: calculatePercentage(statisticData.yes, total)
+      number: statisticData.markup,
+      percent: calculatePercentage(statisticData.markup, total)
     },
     {
       name: 'Нет',
-      number: statisticData.no,
-      percent: calculatePercentage(statisticData.no, total)
+      number: statisticData.unclaimed,
+      percent: calculatePercentage(statisticData.unclaimed, total)
     },
     {
       name: 'Отложить',
-      number: statisticData.later,
-      percent: calculatePercentage(statisticData.later, total)
+      number: statisticData.postponed,
+      percent: calculatePercentage(statisticData.postponed, total)
     },
     {
       name: 'Всего',
@@ -53,7 +72,7 @@ const Statistics = () => {
   return (
     <div className={styles.main}>
       <div className={styles.datePicker}>
-        Выберите дату: 
+        Выберите дату:
         <DatePicker
           selected={startDate}
           onChange={(date: Date | null) => setStartDate(date || new Date())}
