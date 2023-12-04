@@ -31,24 +31,36 @@ const Statistics = () => {
     {
       name: 'Да',
       number: statisticData.yes,
-      percent: calculatePercentage(statisticData.yes, total)
+      percent: calculatePercentage(statisticData.yes, total),
+      confidenceLevel: 'Bысокий',
+      weight: 1.5
     },
     {
       name: 'Нет',
       number: statisticData.no,
-      percent: calculatePercentage(statisticData.no, total)
+      percent: calculatePercentage(statisticData.no, total),
+      confidenceLevel: 'Средний',
+      weight: 1
     },
     {
       name: 'Отложить',
       number: statisticData.later,
-      percent: calculatePercentage(statisticData.later, total)
+      percent: calculatePercentage(statisticData.later, total),
+      confidenceLevel: 'Низкий',
+      weight: 0.5
     },
     {
       name: 'Всего',
       number: total,
-      percent: 100
+      percent: 100,
+      confidenceLevel: '',
+      weight: 4
     }
   ]
+
+  // const weightedTotal = statistic.reduce((acc, item) => acc + item.weight, 0)
+
+  const percentageData = statistic.map((item) => item.percent);
 
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
@@ -90,6 +102,10 @@ const Statistics = () => {
             <th></th>
             <th>Количество</th>
             <th>Процент</th>
+            {/* <th>Уровень достоверности</th>
+            <th>Вес</th>
+            <th>Взвешенное количество</th>
+            <th>Взвешенный процент</th> */}
           </tr>
         </thead>
         <tbody>
@@ -98,10 +114,28 @@ const Statistics = () => {
               <td>{item.name}</td>
               <td>{item.number}</td>
               <td>{item.percent}%</td>
+              {/* <td>{item.confidenceLevel}</td>
+              <td>{item.weight}</td>
+              <td>{item.weight * item.number}</td>
+              <td>
+                {calculatePercentage(
+                  item.weight * item.number,
+                  weightedTotal
+                ).toFixed(2)}
+                %
+              </td> */}
             </tr>
           ))}
         </tbody>
       </table>
+
+
+      <div className={styles.chartContainer}>
+        <div className={styles.chart}>
+          <div className={styles.text}>{percentageData[0]}%</div>
+        </div>
+      </div>
+
 
       <div className={styles.average}>
         <p>Средний порядковый номер по ответу "Да"</p>
@@ -109,11 +143,17 @@ const Statistics = () => {
       </div>
 
       <table className={styles.statisticAverage}>
+        <thead>
+          <tr>
+            <th>Порядковый номер </th>
+            <th>Количество выбранных раз</th>
+          </tr>
+        </thead>
         <tbody>
           {statisticAverage.map((item, index: number) => (
             <tr key={index}>
-              <td>Товар, с порядковым номером {item.itemNumber} выбран</td>
-              <td>{item.itemCount} раз</td>
+              <td>{item.itemNumber} </td>
+              <td>{item.itemCount}</td>
             </tr>
           ))}
         </tbody>

@@ -22,7 +22,7 @@ const Popup: FC<IPopup> = ({ children, setIsOpen }) => {
     }
     window.addEventListener('keydown', close)
     return () => window.removeEventListener('keydown', close)
-  }, [])
+  }, [setIsOpen])
 
   return (
     <section className={styles.wrapper}>
