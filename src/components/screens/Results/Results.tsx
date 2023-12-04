@@ -4,13 +4,16 @@ import { itemsList } from '../Home/RightWindow/fakeData'
 import styles from './Results.module.css'
 
 function Results() {
-
-// Function to format the current date as "25.12.2023"
-const formatDate = () => {
-  const today = new Date();
-  const options = { day: '2-digit', month: '2-digit', year: 'numeric' } as Intl.DateTimeFormatOptions;
-  return new Intl.DateTimeFormat('ru-RU', options).format(today);
-};
+  // Function to format the current date as "25.12.2023"
+  const formatDate = () => {
+    const today = new Date()
+    const options = {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    } as Intl.DateTimeFormatOptions
+    return new Intl.DateTimeFormat('ru-RU', options).format(today)
+  }
 
   return (
     <div className={`${styles.resultPage}`}>

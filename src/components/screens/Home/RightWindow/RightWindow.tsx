@@ -4,12 +4,10 @@ import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
 import styles from './RightWindow.module.scss'
 
 import DropDown from '../../../ui/DropDown/DropDown'
+
 import { dealers, dealersProduct } from './fakeData'
 
-
-
 const RightWindow: FC = () => {
-
   // const [isDropdownItemSelected, setIsDropdownItemSelected] =
   //   useState<boolean>(false)
 
@@ -17,7 +15,6 @@ const RightWindow: FC = () => {
   //   setIsDropdownItemSelected(true)
   // }
 
-  
   return (
     <section className={styles.rightWindow}>
       <DropDown

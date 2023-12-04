@@ -1,46 +1,65 @@
-import Select from 'react-select'
+import React from 'react'
+import Select, {
+  CSSObjectWithLabel,
+  ControlProps,
+  MultiValue
+} from 'react-select'
 
 import styles from './DropDown.module.scss'
 
-interface SelectProps {
-  placeholder: string
-  items: { value: string; label: string }[]
-  onSelect: (items: string | string[] | null) => void
+interface Dealer {
+  value: string
+  label: string
 }
 
-const DropDown: React.FC<SelectProps> = ({ items, onSelect, placeholder }) => {
-  const handleSelect = (selectedOptions: any) => {
+interface DropDownProps {
+  items: Dealer[]
+  onSelect: (selectedValues: string[] | string | null) => void
+  placeholder: string
+}
+
+const DropDown: React.FC<DropDownProps> = ({
+  items,
+  onSelect,
+  placeholder
+}) => {
+  const handleSelect = (selectedOptions: MultiValue<Dealer>) => {
     if (selectedOptions) {
-      if (Array.isArray(selectedOptions)) {
-        const selectedValues = selectedOptions.map(option => option.value)
-        onSelect(selectedValues)
-      } else {
-        onSelect(selectedOptions.value)
-      }
+      const selectedValues = Array.isArray(selectedOptions)
+        ? selectedOptions.map(option => option.value)
+        : [selectedOptions.values]
+
+      onSelect(selectedValues)
     } else {
       onSelect(null)
     }
   }
 
-  // Стили для React Select
-  const customStyles = {
-    control: (provided: any, state: any) => ({
+  // Styles for React Select
+  const customStyles: Record<
+    string,
+    (
+      base: CSSObjectWithLabel,
+      props: ControlProps<Dealer, true>
+    ) => CSSObjectWithLabel
+  > = {
+    control: (provided, state) => ({
       ...provided,
       borderColor: state.isFocused ? '#b5e0c3' : provided.borderColor,
       boxShadow: 'none',
       '&:hover': {
-        borderСolor: state.isFocused ? '#b5e0c3' : provided.borderColor,
+        borderColor: state.isFocused ? '#b5e0c3' : provided.borderColor,
         cursor: 'pointer'
       }
     }),
-    option: (provided: any, state: any) => ({
+    option: (provided, state) => ({
       ...provided,
       backgroundColor: state.isFocused ? '#b5e0c3' : 'white',
       '&:hover': {
         cursor: 'pointer'
       }
     }),
-    multiValue: (provided: any) => ({
+    multiValue: provided => ({
       ...provided,
       backgroundColor: '#b5e0c3'
     })
