@@ -3,8 +3,10 @@ import * as XLSX from 'xlsx'
 
 import styles from './Table.module.scss'
 
+import { TableConfig } from './Table.interface'
+
 interface TableProps {
-  data: Item[]
+  data: Array<TableConfig>
 }
 
 const Table: React.FC<TableProps> = ({ data }) => {

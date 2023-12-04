@@ -12,7 +12,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 580px;
+  min-height: 215px;
   padding: 30px 60px;
   margin-top: 50px;
 }
@@ -55,4 +57,10 @@
   &:hover {
     opacity: 0.6;
   }
+}
+
+.endList {
+  font-size: 18px;
+  margin: 0;
+  text-align: center;
 }

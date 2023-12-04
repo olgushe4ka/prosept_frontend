@@ -44,6 +44,6 @@ export interface SelectedOptionConfig {
 
 export interface MarkupButtonConfig {
   dealer_product_id: number
-  dealer_id: number
+  dealer_id?: number
   status: 'markup' | 'unclaimed' | 'postponed' | 'waiting'
 }

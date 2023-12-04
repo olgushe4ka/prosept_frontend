@@ -13,4 +13,5 @@ export interface IRightWindow {
     dealer_id,
     status
   }: MarkupButtonConfig) => void
+  isLoading: boolean
 }
