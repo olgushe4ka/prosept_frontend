@@ -132,7 +132,13 @@ const Statistics: FC<StatisticConfig> = ({ allDealersProducts }) => {
             <tr key={index}>
               <td>{item.name}</td>
               <td>{item.number}</td>
-              <td>{item.percent}%</td>
+              <td>
+                {' '}
+                {item.percent % 1 === 0
+                  ? item.percent.toFixed(0)
+                  : item.percent.toFixed(2)}
+                %
+              </td>
               {/* <td>{item.confidenceLevel}</td>
               <td>{item.weight}</td>
               <td>{item.weight * item.number}</td>

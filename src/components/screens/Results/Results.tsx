@@ -26,14 +26,30 @@ const Results: FC<ResultsConfig> = ({ allDealersProducts, onClickMarkup }) => {
     return new Intl.DateTimeFormat('ru-RU', options).format(today)
   }
 
+  
+  const mapStatusToText = (status: string) => {
+    switch (status) {
+      case 'markup':
+        return 'Да';
+      case 'postponed':
+        return 'Отложить';
+      case 'unclaimed':
+        return 'Нет';
+      default:
+        return 'Неизвестно';
+    }
+  };
+
   const itemsList = allDealersProducts.map(product => ({
     id: product.id,
     name: product.product_name,
     link: product.product_url,
-    status: product.status,
+    status: mapStatusToText(product.status),
     productMap: '—',
     numberInList: '—'
   }))
+
+
 
   return (
     <div className={`${styles.resultPage}`}>

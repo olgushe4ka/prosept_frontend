@@ -16,7 +16,9 @@ interface TableProps {
   }: MarkupButtonConfig) => void
 }
 
-const Table: React.FC<TableProps> = ({ data, onClickMarkup }) => {
+const Table: React.FC<TableProps> = ({ data, 
+  // onClickMarkup 
+}) => {
   const exportToExcel = () => {
     const ws = XLSX.utils.json_to_sheet(data)
     const wb = XLSX.utils.book_new()
@@ -30,7 +32,7 @@ const Table: React.FC<TableProps> = ({ data, onClickMarkup }) => {
         <thead>
           <tr>
             <th>№</th>
-            <th>Товар производителя</th>
+            <th>Товар дилера</th>
             <th>Соответствие</th>
             <th>Статус</th>
             <th>Порядковый №</th>
