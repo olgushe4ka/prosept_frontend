@@ -25,7 +25,7 @@ const ProseptItem: FC<IProseptItem> = ({
         name="item"
         id={article}
         checked={selectedGood === productId ? true : false}
-        onClick={evt => {
+        onChange={evt => {
           setSelectedGood(productId)
           const target = evt.target as HTMLInputElement
           if (selectedGood === productId) {

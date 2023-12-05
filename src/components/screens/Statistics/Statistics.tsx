@@ -1,11 +1,14 @@
+import ru from 'date-fns/locale/ru'
 import { FC, useState } from 'react'
-import DatePicker from 'react-datepicker'
+import DatePicker, { registerLocale } from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
 import styles from './Statistics.module.scss'
 
 import { StatisticConfig } from './Statistic.interface'
 import { statisticAverage } from './statistic-test-data'
+
+registerLocale('ru', ru)
 
 interface statisticDataConfig {
   markup: number
@@ -75,7 +78,7 @@ const Statistics: FC<StatisticConfig> = ({ allDealersProducts }) => {
   ]
   // const weightedTotal = statistic.reduce((acc, item) => acc + item.weight, 0)
 
-  const percentageData = statistic.map(item => item.percent)
+  // const percentageData = statistic.map(item => item.percent)
 
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
@@ -95,7 +98,6 @@ const Statistics: FC<StatisticConfig> = ({ allDealersProducts }) => {
             locale="ru"
             dateFormat="d MMMM, yyyy"
             wrapperClassName={styles.datePicker}
-            placeholderText="от"
             maxDate={new Date()}
           />
 
@@ -109,7 +111,6 @@ const Statistics: FC<StatisticConfig> = ({ allDealersProducts }) => {
             locale="ru"
             dateFormat="d MMMM, yyyy"
             wrapperClassName={styles.datePicker}
-            placeholderText="до"
             maxDate={new Date()}
           />
         </div>
@@ -132,7 +133,13 @@ const Statistics: FC<StatisticConfig> = ({ allDealersProducts }) => {
             <tr key={index}>
               <td>{item.name}</td>
               <td>{item.number}</td>
-              <td>{item.percent}%</td>
+              <td>
+                {' '}
+                {item.percent % 1 === 0
+                  ? item.percent.toFixed(0)
+                  : item.percent.toFixed(2)}
+                %
+              </td>
               {/* <td>{item.confidenceLevel}</td>
               <td>{item.weight}</td>
               <td>{item.weight * item.number}</td>
@@ -148,11 +155,11 @@ const Statistics: FC<StatisticConfig> = ({ allDealersProducts }) => {
         </tbody>
       </table>
 
-      <div className={styles.chartContainer}>
+      {/* <div className={styles.chartContainer}>
         <div className={styles.chart}>
           <div className={styles.text}>{percentageData[0]}%</div>
         </div>
-      </div>
+      </div> */}
 
       <div className={styles.average}>
         <p>Средний порядковый номер по ответу "Да"</p>
