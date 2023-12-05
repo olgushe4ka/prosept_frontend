@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from 'react'
 
 import styles from './LeftWindow.module.scss'
 
+import preloader from '../../../../images/preloader.gif'
 import { CompanyProductConfig } from '../Home.interface.js'
 
 import { LeftWindowConfig } from './LeftWindow.interface.js'
@@ -10,7 +11,8 @@ import ProseptItem from './ProseptItem/ProseptItem.js'
 const LeftWindow: FC<LeftWindowConfig> = ({
   allCompanyProducts,
   selectedGood,
-  setSelectedGood
+  setSelectedGood,
+  isLoading
 }) => {
   const [goodsQuantity, setGoodsQuantity] = useState<number>(5) //количество отображаемых товаров
   const [searchRequest, setSearchRequest] = useState<string>('') //поисковый запрос
@@ -54,16 +56,24 @@ const LeftWindow: FC<LeftWindowConfig> = ({
         </select>
       </label>
       <ul className={styles.list}>
-        {searchGoods.slice(0, goodsQuantity).map(good => (
-          <ProseptItem
-            key={good.article}
-            article={good.article}
-            name={good.name}
-            selectedGood={selectedGood}
-            productId={good.id}
-            setSelectedGood={setSelectedGood}
-          />
-        ))}
+        {isLoading ? (
+          <div className={styles.preloaderWrapper}>
+            <img src={preloader} alt="preloader" width="64px" />
+          </div>
+        ) : (
+          searchGoods
+            .slice(0, goodsQuantity)
+            .map(good => (
+              <ProseptItem
+                key={good.article}
+                article={good.article}
+                name={good.name}
+                selectedGood={selectedGood}
+                productId={good.id}
+                setSelectedGood={setSelectedGood}
+              />
+            ))
+        )}
       </ul>
     </section>
   )
