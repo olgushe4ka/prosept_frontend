@@ -1,33 +1,65 @@
-.main {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
+@import 'src/styles/variables';
+
+.table {
+  width: 700px;
+  border: solid #ccc 1px;
+  border-radius: 6px;
+  box-shadow: 0 1px 1px #ccc;
+  border-spacing: 0;
 }
 
-.main table {
-  border-collapse: collapse;
+.table tr:hover {
+  background: $dark-green-transparent;
+  transition: all 0.1s ease-in-out;
 }
 
-.main th,
-.main td {
-  border: 1px solid #dddddd;
-  padding: 8px;
+.table td,
+.table th {
+  border-left: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  padding: 10px;
   text-align: left;
 }
 
-.main th {
-  background-color: #b5e0c3;
+.table th {
+  background-color: $light-green;
+  background-image: linear-gradient($extra-light-green, $light-green);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
+  border-top: none;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.table td:first-child,
+.table th:first-child {
+  border-left: none;
+}
+
+.table th:first-child {
+  border-radius: 6px 0 0 0;
+}
+
+.table th:last-child {
+  border-radius: 0 6px 0 0;
+}
+
+.table th:only-child {
+  border-radius: 6px 6px 0 0;
+}
+
+.table tr:last-child td:first-child {
+  border-radius: 0 0 0 6px;
+}
+
+.table tr:last-child td:last-child {
+  border-radius: 0 0 6px 0;
 }
 
 .datePickers {
   display: flex;
-  gap: 20px;
+  gap: 15px;
   text-align: center;
-  align-items: baseline;
-}
-
-.datePickerDateBox {
-  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .datePicker input {
@@ -50,6 +82,9 @@
   &:active {
     transform: scale(1.1);
   }
+  &:focus {
+    outline: 0;
+  }
 }
 
 .statistic {
@@ -59,7 +94,7 @@
 .average {
   margin: 30px 0;
   display: flex;
-  gap: 30px;
+  gap: 10px;
   font-weight: 600;
 }
 

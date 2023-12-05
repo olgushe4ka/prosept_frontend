@@ -87,36 +87,34 @@ const Statistics: FC<StatisticConfig> = ({ allDealersProducts }) => {
     <div className={styles.main}>
       <h3>Статистика</h3>
       <div className={styles.datePickers}>
-        <p>Выберите дату "от" и "до"</p>
-        <div className={styles.datePickerDateBox}>
-          <DatePicker
-            selected={startDate}
-            onChange={(date: Date | null) => setStartDate(date || new Date())}
-            selectsStart
-            startDate={startDate}
-            endDate={endDate}
-            locale="ru"
-            dateFormat="d MMMM, yyyy"
-            wrapperClassName={styles.datePicker}
-            maxDate={new Date()}
-          />
-
-          <DatePicker
-            selected={endDate}
-            onChange={(date: Date | null) => setEndDate(date || new Date())}
-            selectsEnd
-            startDate={startDate}
-            endDate={endDate}
-            minDate={startDate}
-            locale="ru"
-            dateFormat="d MMMM, yyyy"
-            wrapperClassName={styles.datePicker}
-            maxDate={new Date()}
-          />
-        </div>
+        <p>Период с</p>
+        <DatePicker
+          selected={startDate}
+          onChange={(date: Date | null) => setStartDate(date || new Date())}
+          selectsStart
+          startDate={startDate}
+          endDate={endDate}
+          locale="ru"
+          dateFormat="d MMMM, yyyy"
+          wrapperClassName={styles.datePicker}
+          maxDate={new Date()}
+        />
+        <p>по</p>
+        <DatePicker
+          selected={endDate}
+          onChange={(date: Date | null) => setEndDate(date || new Date())}
+          selectsEnd
+          startDate={startDate}
+          endDate={endDate}
+          minDate={startDate}
+          locale="ru"
+          dateFormat="d MMMM, yyyy"
+          wrapperClassName={styles.datePicker}
+          maxDate={new Date()}
+        />
       </div>
 
-      <table className={styles.statistic}>
+      <table className={styles.table}>
         <thead>
           <tr>
             <th></th>
@@ -162,11 +160,11 @@ const Statistics: FC<StatisticConfig> = ({ allDealersProducts }) => {
       </div> */}
 
       <div className={styles.average}>
-        <p>Средний порядковый номер по ответу "Да"</p>
+        <p>Средний порядковый номер по ответу "Да":</p>
         <p>{calculateAverage(statisticAverage)}</p>
       </div>
 
-      <table className={styles.statisticAverage}>
+      <table className={styles.table}>
         <thead>
           <tr>
             <th>Порядковый № </th>
