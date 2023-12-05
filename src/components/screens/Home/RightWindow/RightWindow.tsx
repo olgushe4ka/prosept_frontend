@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
 
 import styles from './RightWindow.module.scss'
@@ -6,6 +6,7 @@ import styles from './RightWindow.module.scss'
 import preloader from '../../../../images/preloader.gif'
 import Button from '../../../ui/Button/Button'
 import DropDown from '../../../ui/DropDown/DropDown'
+import { DealerProductConfig } from '../Home.interface'
 
 import { IRightWindow } from './RightWindow.interface'
 
@@ -14,8 +15,11 @@ const RightWindow: FC<IRightWindow> = ({
   setDealersProductsList,
   dealersProductsList,
   onClickMarkup,
-  isLoading
+  isLoading,
+  history,
+  setHistory
 }) => {
+  const [backHistory, setBackHistory] = useState<Array<DealerProductConfig>>([])
   return (
     <section className={styles.rightWindow}>
       <DropDown
@@ -38,9 +42,23 @@ const RightWindow: FC<IRightWindow> = ({
         {dealersProductsList[0] && !isLoading && (
           <>
             <div className={styles.good}>
-              <button className={styles.arrow}>
-                <FaArrowLeft />
-              </button>
+              <div className={styles.arrowContainer}>
+                {history[0] && (
+                  <button
+                    className={styles.arrow}
+                    onClick={() => {
+                      setDealersProductsList([
+                        history[0],
+                        ...dealersProductsList
+                      ])
+                      setHistory(history.slice(1))
+                      setBackHistory([dealersProductsList[0], ...backHistory])
+                    }}
+                  >
+                    <FaArrowLeft />
+                  </button>
+                )}
+              </div>
               <a
                 href={dealersProductsList[0].product_url}
                 target="_blank"
@@ -51,9 +69,20 @@ const RightWindow: FC<IRightWindow> = ({
                 {dealersProductsList[0].product_name}
                 <p>{dealersProductsList[0].price} ₽</p>
               </a>
-              <button className={styles.arrow}>
-                <FaArrowRight />
-              </button>
+              <div className={styles.arrowContainer}>
+                {backHistory[0] && (
+                  <button
+                    className={styles.arrow}
+                    onClick={() => {
+                      setBackHistory(backHistory.slice(1))
+                      setHistory([dealersProductsList[0], ...history])
+                      setDealersProductsList(dealersProductsList.slice(1))
+                    }}
+                  >
+                    <FaArrowRight />
+                  </button>
+                )}
+              </div>
             </div>
 
             <div className={styles.buttons}>
@@ -67,6 +96,7 @@ const RightWindow: FC<IRightWindow> = ({
                   })
                 }}
                 text="Да"
+                disabled={isLoading}
               />
               <Button
                 style="black"
@@ -77,6 +107,7 @@ const RightWindow: FC<IRightWindow> = ({
                   })
                 }}
                 text="Нет"
+                disabled={isLoading}
               />
               <Button
                 style="black"
@@ -87,6 +118,7 @@ const RightWindow: FC<IRightWindow> = ({
                   })
                 }}
                 text="Отложить"
+                disabled={isLoading}
               />
             </div>
           </>

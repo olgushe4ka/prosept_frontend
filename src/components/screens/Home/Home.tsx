@@ -23,24 +23,20 @@ const Home: FC = () => {
   useEffect(() => {
     setIsLoading(true)
     Promise.all([
-      api
-        .getAllDealers()
-        .then(res => {
-          setAllDealers(res.data)
-        })
-        .catch(console.error),
-      api
-        .getAllCompanyProducts()
-        .then(res => {
-          setAllCompanyProducts(res.data)
-        })
-        .catch(console.error),
-      getAllDealersProducts()
-        .then(res => {
-          setDealersProductsList(res.data)
-        })
-        .catch(console.error)
-    ]).finally(() => setIsLoading(false))
+      api.getAllDealers().then(res => {
+        setAllDealers(res.data)
+      }),
+      api.getAllCompanyProducts().then(res => {
+        setAllCompanyProducts(res.data)
+      }),
+      getAllDealersProducts().then(res => {
+        setDealersProductsList(res.data)
+      })
+    ])
+      .catch(() => {
+        setErrorText('Ошибка на сервере. Попробуйте перезагрузить страницу.')
+      })
+      .finally(() => setIsLoading(false))
   }, [])
 
   const [allCompanyProducts, setAllCompanyProducts] = useState<
@@ -58,6 +54,7 @@ const Home: FC = () => {
   const [selectedGood, setSelectedGood] = useState<number | null>(null)
   const [errorText, setErrorText] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [history, setHistory] = useState<Array<DealerProductConfig>>([])
 
   const onClickMarkup = ({
     dealer_product_id,
@@ -74,6 +71,7 @@ const Home: FC = () => {
           dealer_id
         })
         .then(() => {
+          setHistory([dealersProductsList[0], ...history])
           setDealersProductsList(dealersProductsList.slice(1))
           api
             .getAllCompanyProducts()
@@ -93,13 +91,13 @@ const Home: FC = () => {
         setTimeout(() => setErrorText(''), 2000)
         return
       }
-
       api
         .markupDealerProduct({
           status,
           dealer_product_id
         })
         .then(() => {
+          setHistory([dealersProductsList[0], ...history])
           setDealersProductsList(dealersProductsList.slice(1))
           api
             .getAllCompanyProducts()
@@ -136,31 +134,54 @@ const Home: FC = () => {
             dealersProductsList={dealersProductsList}
             onClickMarkup={onClickMarkup}
             isLoading={isLoading}
+            history={history}
+            setHistory={setHistory}
           />
         </div>
         <div className={styles.buttonsResult}>
           <Button
             style="green"
             onClick={() => {
+              setIsLoading(true)
               getAllDealersProducts()
                 .then(() => setIsResultOpen(true))
-                .catch(console.error)
+                .catch(() => {
+                  setErrorText(
+                    'Ошибка на сервере. Попробуйте перезагрузить страницу.'
+                  )
+                })
+                .finally(() => {
+                  setIsLoading(false)
+                })
             }}
             text="Результаты"
+            disabled={isLoading}
           />
           <Button
             style="green"
             onClick={() => {
+              setIsLoading(true)
               getAllDealersProducts()
                 .then(() => setIsStatisticsOpen(true))
-                .catch(console.error)
+                .catch(() => {
+                  setErrorText(
+                    'Ошибка на сервере. Попробуйте перезагрузить страницу.'
+                  )
+                })
+                .finally(() => {
+                  setIsLoading(false)
+                })
             }}
             text="Статистика"
+            disabled={isLoading}
           />
         </div>
         {isResultOpen && (
           <Popup setIsOpen={setIsResultOpen}>
-            <Results allDealersProducts={allDealersProducts} />
+            <Results
+              allDealersProducts={allDealersProducts}
+              onClickMarkup={onClickMarkup}
+            />
           </Popup>
         )}
         {isStatisticsOpen && (

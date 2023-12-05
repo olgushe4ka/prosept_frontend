@@ -6,13 +6,15 @@ interface ButtonConfig {
   style: 'green' | 'black'
   onClick: () => void
   text: string
+  disabled: boolean
 }
 
-const Button: FC<ButtonConfig> = ({ style, onClick, text }) => {
+const Button: FC<ButtonConfig> = ({ style, onClick, text, disabled }) => {
   return (
     <button
       className={style === 'green' ? styles.greenButton : styles.blackButton}
       onClick={onClick}
+      disabled={disabled}
     >
       {text}
     </button>
