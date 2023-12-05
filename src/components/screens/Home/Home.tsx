@@ -162,7 +162,9 @@ const Home: FC = () => {
             onClick={() => {
               setIsLoading(true)
               getAllDealersProducts()
-                .then(() => setIsStatisticsOpen(true))
+                .then(() => {
+                  setIsStatisticsOpen(true)
+                })
                 .catch(() => {
                   setErrorText(
                     'Ошибка на сервере. Попробуйте перезагрузить страницу.'

@@ -76,9 +76,6 @@ const Statistics: FC<StatisticConfig> = ({ allDealersProducts }) => {
       weight: 4
     }
   ]
-  // const weightedTotal = statistic.reduce((acc, item) => acc + item.weight, 0)
-
-  // const percentageData = statistic.map(item => item.percent)
 
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
@@ -87,45 +84,39 @@ const Statistics: FC<StatisticConfig> = ({ allDealersProducts }) => {
     <div className={styles.main}>
       <h3>Статистика</h3>
       <div className={styles.datePickers}>
-        <p>Выберите дату "от" и "до"</p>
-        <div className={styles.datePickerDateBox}>
-          <DatePicker
-            selected={startDate}
-            onChange={(date: Date | null) => setStartDate(date || new Date())}
-            selectsStart
-            startDate={startDate}
-            endDate={endDate}
-            locale="ru"
-            dateFormat="d MMMM, yyyy"
-            wrapperClassName={styles.datePicker}
-            maxDate={new Date()}
-          />
-
-          <DatePicker
-            selected={endDate}
-            onChange={(date: Date | null) => setEndDate(date || new Date())}
-            selectsEnd
-            startDate={startDate}
-            endDate={endDate}
-            minDate={startDate}
-            locale="ru"
-            dateFormat="d MMMM, yyyy"
-            wrapperClassName={styles.datePicker}
-            maxDate={new Date()}
-          />
-        </div>
+        <p>Период с</p>
+        <DatePicker
+          selected={startDate}
+          onChange={(date: Date | null) => setStartDate(date || new Date())}
+          selectsStart
+          startDate={startDate}
+          endDate={endDate}
+          locale="ru"
+          dateFormat="d MMMM, yyyy"
+          wrapperClassName={styles.datePicker}
+          maxDate={new Date()}
+        />
+        <p>по</p>
+        <DatePicker
+          selected={endDate}
+          onChange={(date: Date | null) => setEndDate(date || new Date())}
+          selectsEnd
+          startDate={startDate}
+          endDate={endDate}
+          minDate={startDate}
+          locale="ru"
+          dateFormat="d MMMM, yyyy"
+          wrapperClassName={styles.datePicker}
+          maxDate={new Date()}
+        />
       </div>
 
-      <table className={styles.statistic}>
+      <table className={styles.table}>
         <thead>
           <tr>
             <th></th>
             <th>Количество</th>
             <th>Процент</th>
-            {/* <th>Уровень достоверности</th>
-            <th>Вес</th>
-            <th>Взвешенное количество</th>
-            <th>Взвешенный процент</th> */}
           </tr>
         </thead>
         <tbody>
@@ -140,37 +131,21 @@ const Statistics: FC<StatisticConfig> = ({ allDealersProducts }) => {
                   : item.percent.toFixed(2)}
                 %
               </td>
-              {/* <td>{item.confidenceLevel}</td>
-              <td>{item.weight}</td>
-              <td>{item.weight * item.number}</td>
-              <td>
-                {calculatePercentage(
-                  item.weight * item.number,
-                  weightedTotal
-                ).toFixed(2)}
-                %
-              </td> */}
             </tr>
           ))}
         </tbody>
       </table>
 
-      {/* <div className={styles.chartContainer}>
-        <div className={styles.chart}>
-          <div className={styles.text}>{percentageData[0]}%</div>
-        </div>
-      </div> */}
-
       <div className={styles.average}>
-        <p>Средний порядковый номер по ответу "Да"</p>
+        <p>Средний порядковый номер по ответу "Да":</p>
         <p>{calculateAverage(statisticAverage)}</p>
       </div>
 
-      <table className={styles.statisticAverage}>
+      <table className={styles.table}>
         <thead>
           <tr>
-            <th>Порядковый № </th>
-            <th>Кол-во выбранных раз</th>
+            <th>Порядковый №</th>
+            <th>Количество выбранных раз</th>
           </tr>
         </thead>
         <tbody>

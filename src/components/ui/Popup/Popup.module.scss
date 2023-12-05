@@ -1,3 +1,5 @@
+@import 'src/styles/variables';
+
 .wrapper {
   position: fixed;
   content: '';
@@ -20,7 +22,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
+  border-radius: 5px;
   min-width: 500px;
   min-height: 300px;
   max-width: 90%;
@@ -29,10 +31,12 @@
 
 .content {
   max-height: calc(100% - 30px);
-  padding: 50px;
+  padding: 30px 70px 70px;
   box-sizing: border-box;
   overflow: hidden;
   overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: $scrollbar transparent;
 }
 
 .close {

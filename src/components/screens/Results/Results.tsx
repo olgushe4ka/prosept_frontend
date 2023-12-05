@@ -26,19 +26,18 @@ const Results: FC<ResultsConfig> = ({ allDealersProducts, onClickMarkup }) => {
     return new Intl.DateTimeFormat('ru-RU', options).format(today)
   }
 
-  
   const mapStatusToText = (status: string) => {
     switch (status) {
       case 'markup':
-        return 'Да';
+        return 'Да'
       case 'postponed':
-        return 'Отложить';
+        return 'Отложить'
       case 'unclaimed':
-        return 'Нет';
+        return 'Нет'
       default:
-        return 'Неизвестно';
+        return 'Неизвестно'
     }
-  };
+  }
 
   const itemsList = allDealersProducts.map(product => ({
     id: product.id,
@@ -49,13 +48,9 @@ const Results: FC<ResultsConfig> = ({ allDealersProducts, onClickMarkup }) => {
     numberInList: '—'
   }))
 
-
-
   return (
-    <div className={`${styles.resultPage}`}>
-      <div className={styles.datePickerContainer}>
-        <h3>Результаты за сегодня ({formatDate()})</h3>
-      </div>
+    <div className={styles.resultPage}>
+      <h3 className={styles.title}>Результаты за сегодня ({formatDate()})</h3>
       <div className={styles.datePickerContainer}></div>
       <Table data={itemsList} onClickMarkup={onClickMarkup} />
     </div>

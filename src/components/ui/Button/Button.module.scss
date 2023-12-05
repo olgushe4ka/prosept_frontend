@@ -35,7 +35,7 @@
     background-color 0.3s ease-in-out,
     transform 0.2s ease-in-out;
   &:hover {
-    background-color: rgba(46, 125, 50, 0.07);
+    background-color: $dark-green-transparent;
   }
   &:active {
     transform: scale(1.1);

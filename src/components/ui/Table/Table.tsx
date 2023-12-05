@@ -1,5 +1,4 @@
 import { MdDeleteOutline } from 'react-icons/md'
-import * as XLSX from 'xlsx'
 
 import styles from './Table.module.scss'
 
@@ -16,36 +15,31 @@ interface TableProps {
   }: MarkupButtonConfig) => void
 }
 
-const Table: React.FC<TableProps> = ({ data, 
-  // onClickMarkup 
+const Table: React.FC<TableProps> = ({
+  data
+  // onClickMarkup
 }) => {
-  const exportToExcel = () => {
-    const ws = XLSX.utils.json_to_sheet(data)
-    const wb = XLSX.utils.book_new()
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1')
-    XLSX.writeFile(wb, 'table.xlsx')
-  }
-
   return (
     <>
-      <table className={styles.main}>
+      <table className={styles.table}>
         <thead>
           <tr>
-            <th>№</th>
+            <th className={styles.tableNumber}>№</th>
             <th>Товар дилера</th>
             <th>Соответствие</th>
-            <th>Статус</th>
-            <th>Порядковый №</th>
+            <th className={styles.tableStatus}>Статус</th>
+            <th className={styles.tableNumberInList}>Порядковый №</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           {data.map((item, index: number) => (
             <tr key={index}>
-              <td>{item.id}</td>
+              <td className={styles.tableNumber}>{index + 1}</td>
               <td>{item.name}</td>
               <td>{item.productMap}</td>
-              <td>{item.status}</td>
-              <td>{item.numberInList}</td>
+              <td className={styles.tableStatus}>{item.status}</td>
+              <td className={styles.tableNumberInList}>{item.numberInList}</td>
               <td className={styles.deleteIcon}>
                 <button
                   onClick={() => {
@@ -59,9 +53,6 @@ const Table: React.FC<TableProps> = ({ data,
           ))}
         </tbody>
       </table>
-      <button className={styles.button} onClick={exportToExcel}>
-        Export to Excel
-      </button>
     </>
   )
 }
