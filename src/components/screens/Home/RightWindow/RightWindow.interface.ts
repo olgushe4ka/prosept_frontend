@@ -14,4 +14,6 @@ export interface IRightWindow {
     status
   }: MarkupButtonConfig) => void
   isLoading: boolean
+  history: Array<DealerProductConfig>
+  setHistory: (history: Array<DealerProductConfig>) => void
 }

@@ -3,13 +3,18 @@ import { FC } from 'react'
 import styles from './Results.module.scss'
 
 import Table from '../../ui/Table/Table'
-import { DealerProductConfig } from '../Home/Home.interface'
+import { DealerProductConfig, MarkupButtonConfig } from '../Home/Home.interface'
 
 interface ResultsConfig {
   allDealersProducts: Array<DealerProductConfig>
+  onClickMarkup: ({
+    dealer_product_id,
+    dealer_id,
+    status
+  }: MarkupButtonConfig) => void
 }
 
-const Results: FC<ResultsConfig> = ({ allDealersProducts }) => {
+const Results: FC<ResultsConfig> = ({ allDealersProducts, onClickMarkup }) => {
   // Function to format the current date as "25.12.2023"
   const formatDate = () => {
     const today = new Date()
@@ -36,7 +41,7 @@ const Results: FC<ResultsConfig> = ({ allDealersProducts }) => {
         <h3>Результаты за сегодня ({formatDate()})</h3>
       </div>
       <div className={styles.datePickerContainer}></div>
-      <Table data={itemsList} />
+      <Table data={itemsList} onClickMarkup={onClickMarkup} />
     </div>
   )
 }
