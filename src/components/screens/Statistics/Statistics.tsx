@@ -76,9 +76,6 @@ const Statistics: FC<StatisticConfig> = ({ allDealersProducts }) => {
       weight: 4
     }
   ]
-  // const weightedTotal = statistic.reduce((acc, item) => acc + item.weight, 0)
-
-  // const percentageData = statistic.map(item => item.percent)
 
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
@@ -120,10 +117,6 @@ const Statistics: FC<StatisticConfig> = ({ allDealersProducts }) => {
             <th></th>
             <th>Количество</th>
             <th>Процент</th>
-            {/* <th>Уровень достоверности</th>
-            <th>Вес</th>
-            <th>Взвешенное количество</th>
-            <th>Взвешенный процент</th> */}
           </tr>
         </thead>
         <tbody>
@@ -138,26 +131,10 @@ const Statistics: FC<StatisticConfig> = ({ allDealersProducts }) => {
                   : item.percent.toFixed(2)}
                 %
               </td>
-              {/* <td>{item.confidenceLevel}</td>
-              <td>{item.weight}</td>
-              <td>{item.weight * item.number}</td>
-              <td>
-                {calculatePercentage(
-                  item.weight * item.number,
-                  weightedTotal
-                ).toFixed(2)}
-                %
-              </td> */}
             </tr>
           ))}
         </tbody>
       </table>
-
-      {/* <div className={styles.chartContainer}>
-        <div className={styles.chart}>
-          <div className={styles.text}>{percentageData[0]}%</div>
-        </div>
-      </div> */}
 
       <div className={styles.average}>
         <p>Средний порядковый номер по ответу "Да":</p>
@@ -167,8 +144,8 @@ const Statistics: FC<StatisticConfig> = ({ allDealersProducts }) => {
       <table className={styles.table}>
         <thead>
           <tr>
-            <th>Порядковый № </th>
-            <th>Кол-во выбранных раз</th>
+            <th>Порядковый №</th>
+            <th>Количество выбранных раз</th>
           </tr>
         </thead>
         <tbody>
