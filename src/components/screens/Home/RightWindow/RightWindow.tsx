@@ -65,10 +65,10 @@ const RightWindow: FC<IRightWindow> = ({
                 href={dealersProductsList[0].product_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={styles.productNameBox}
+                className={styles.productName}
                 title="Открыть страницу товара"
               >
-                <p   className={styles.productName}> {dealersProductsList[0].product_name} </p>
+                {dealersProductsList[0].product_name}
                 <p>{dealersProductsList[0].price} ₽</p>
               </a>
               <div className={styles.arrowContainer}>
