@@ -16,7 +16,8 @@
   align-items: center;
   justify-content: center;
   width: 700px;
-  height: 300px;
+  min-height: 200px;
+  max-height: 100%;
   box-sizing: border-box;
   padding: 10px 60px 30px;
   margin-top: 78px;
@@ -29,7 +30,8 @@
   width: 100%;
 }
 
-.productName {
+.productNameBox {
+  max-width: 100%;
   margin-top: 45px;
   text-align: center;
   font-size: 18px;
@@ -37,9 +39,10 @@
   color: black;
   cursor: pointer;
   transition: opacity 0.3s ease-in-out;
+  overflow-wrap: break-word;
 }
 
-.productName:hover {
+.productNameBox:hover {
   opacity: 0.7;
 }
 

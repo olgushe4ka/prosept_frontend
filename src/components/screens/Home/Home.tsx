@@ -20,6 +20,7 @@ import {
 import LeftWindow from './LeftWindow/LeftWindow'
 import RightWindow from './RightWindow/RightWindow'
 
+
 const Home: FC = () => {
   useEffect(() => {
     setIsDealersProductsLoading(true)
@@ -37,6 +38,8 @@ const Home: FC = () => {
       })
       .finally(() => setIsDealersProductsLoading(false))
   }, [])
+
+
 
   const [allCompanyProducts, setAllCompanyProducts] = useState<
     Array<CompanyProductConfig>

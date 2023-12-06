@@ -23,6 +23,9 @@ const LeftWindow: FC<LeftWindowConfig> = ({
     setSearchGoods(allCompanyProducts)
   }, [allCompanyProducts])
 
+
+
+
   return (
     <section className={styles.leftWindow}>
       <input
@@ -41,19 +44,18 @@ const LeftWindow: FC<LeftWindowConfig> = ({
         }}
       />
       <label className={styles.blockFilter}>
-        Показывать
-        <select
+        Показывать по
+        <input
+          type="number"
           className={styles.filter}
+          value={goodsQuantity}
           onChange={evt => {
-            setGoodsQuantity(Number(evt.target.value))
+            const newValue = Number(evt.target.value)
+            setGoodsQuantity(newValue)
           }}
-          defaultValue={5}
-        >
-          <option value="1">1</option>
-          <option value="3">3</option>
-          <option value="5">5</option>
-          <option value="Infinity">Все</option>
-        </select>
+          title={`Максимальное количество: `} //Нужно брать инфу из БД
+        />
+        наименований
       </label>
       <ul className={styles.list}>
         {isProductCompanyLoading ? (
