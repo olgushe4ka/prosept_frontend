@@ -7,6 +7,19 @@
   cursor: pointer;
   border: 1px solid transparent;
   font-size: 16px;
+  gap: 15px;
+}
+
+.proseptItem span:first-of-type {
+  word-wrap: break-word;
+  display: block;
+  max-width: 30%;
+}
+
+.proseptItem span:nth-of-type(2) {
+  display: block;
+  max-width: 70%;  
+  overflow-wrap: break-word;
 }
 
 li input[type='radio']:checked + .proseptItem {
