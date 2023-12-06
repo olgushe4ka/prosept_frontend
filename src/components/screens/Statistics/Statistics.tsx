@@ -1,14 +1,11 @@
-import ru from 'date-fns/locale/ru'
 import { FC, useState } from 'react'
-import DatePicker, { registerLocale } from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
 import styles from './Statistics.module.scss'
 
-import { StatisticConfig } from './Statistic.interface'
-import { statisticAverage } from './statistic-test-data'
+import Period from '../../ui/Period/Period'
 
-registerLocale('ru', ru)
+import { StatisticAverageConfig, StatisticConfig } from './Statistic.interface'
 
 interface statisticDataConfig {
   markup: number
@@ -18,14 +15,49 @@ interface statisticDataConfig {
 }
 
 const Statistics: FC<StatisticConfig> = ({ allDealersProducts }) => {
+  const d = new Date()
+  const currentYear = d.getFullYear()
+  const currentMonth = d.getMonth()
+  const currentDate = d.getDate()
+
+  const [startDate, setStartDate] = useState(
+    new Date(currentYear, currentMonth, currentDate, 0, 0, 0)
+  )
+  const [endDate, setEndDate] = useState(
+    new Date(currentYear, currentMonth, currentDate, 23, 59, 59)
+  )
+
   const statisticData: statisticDataConfig = {
     markup: 0,
     unclaimed: 0,
     postponed: 0,
     waiting: 0
   }
-  for (const product of allDealersProducts) {
+
+  const searchRange = allDealersProducts.filter(item => {
+    return (
+      new Date(item.date_status).getTime() > startDate.getTime() &&
+      new Date(item.date_status).getTime() < endDate.getTime()
+    )
+  })
+
+  const statisticAverage: StatisticAverageConfig | Record<string, number> = {}
+
+  for (const product of searchRange) {
     statisticData[product.status as keyof statisticDataConfig] += 1
+    if (product.serial_number) {
+      if (!statisticAverage[product.serial_number]) {
+        statisticAverage[product.serial_number] = 0
+      }
+      statisticAverage[product.serial_number]++
+    }
+  }
+  const statisticAverageForHTML = []
+  for (const [itemNumber, itemCount] of Object.entries(statisticAverage)) {
+    statisticAverageForHTML.push({
+      itemNumber,
+      itemCount
+    })
   }
 
   const calculatePercentage = (value: number, total: number) =>
@@ -34,15 +66,14 @@ const Statistics: FC<StatisticConfig> = ({ allDealersProducts }) => {
   const total =
     statisticData.unclaimed + statisticData.postponed + statisticData.markup
 
-  const calculateAverage = (
-    data: { itemNumber: number; itemCount: number }[]
-  ): number => {
-    const sumProducts = data.reduce(
-      (acc, { itemNumber, itemCount }) => acc + itemNumber * itemCount,
-      0
-    )
-    const sumCount = data.reduce((acc, { itemCount }) => acc + itemCount, 0)
-    const average = sumProducts / sumCount
+  const calculateAverage = (data: Record<string, number>): number => {
+    let countNumber: number = 0
+    let sumMarkups: number = 0
+    for (const count of Object.keys(data)) {
+      countNumber += Number(data[count]) * Number(count)
+      sumMarkups += Number(data[count])
+    }
+    const average = countNumber / sumMarkups
     return Number(average.toFixed(2))
   }
 
@@ -50,67 +81,34 @@ const Statistics: FC<StatisticConfig> = ({ allDealersProducts }) => {
     {
       name: 'Да',
       number: statisticData.markup,
-      percent: calculatePercentage(statisticData.markup, total),
-      confidenceLevel: 'Bысокий',
-      weight: 1.5
+      percent: calculatePercentage(statisticData.markup, total)
     },
     {
       name: 'Нет',
       number: statisticData.unclaimed,
-      percent: calculatePercentage(statisticData.unclaimed, total),
-      confidenceLevel: 'Средний',
-      weight: 1
+      percent: calculatePercentage(statisticData.unclaimed, total)
     },
     {
       name: 'Отложить',
       number: statisticData.postponed,
-      percent: calculatePercentage(statisticData.postponed, total),
-      confidenceLevel: 'Низкий',
-      weight: 0.5
+      percent: calculatePercentage(statisticData.postponed, total)
     },
     {
       name: 'Всего',
       number: total,
-      percent: 100,
-      confidenceLevel: '',
-      weight: 4
+      percent: 100
     }
   ]
-
-  const [startDate, setStartDate] = useState(new Date())
-  const [endDate, setEndDate] = useState(new Date())
 
   return (
     <div className={styles.main}>
       <h3>Статистика</h3>
-      <div className={styles.datePickers}>
-        <p>Период с</p>
-        <DatePicker
-          selected={startDate}
-          onChange={(date: Date | null) => setStartDate(date || new Date())}
-          selectsStart
-          startDate={startDate}
-          endDate={endDate}
-          locale="ru"
-          dateFormat="d MMMM, yyyy"
-          wrapperClassName={styles.datePicker}
-          maxDate={new Date()}
-        />
-        <p>по</p>
-        <DatePicker
-          selected={endDate}
-          onChange={(date: Date | null) => setEndDate(date || new Date())}
-          selectsEnd
-          startDate={startDate}
-          endDate={endDate}
-          minDate={startDate}
-          locale="ru"
-          dateFormat="d MMMM, yyyy"
-          wrapperClassName={styles.datePicker}
-          maxDate={new Date()}
-        />
-      </div>
-
+      <Period
+        startDate={startDate}
+        endDate={endDate}
+        setStartDate={setStartDate}
+        setEndDate={setEndDate}
+      />
       <table className={styles.table}>
         <thead>
           <tr>
@@ -125,7 +123,6 @@ const Statistics: FC<StatisticConfig> = ({ allDealersProducts }) => {
               <td>{item.name}</td>
               <td>{item.number}</td>
               <td>
-                {' '}
                 {item.percent % 1 === 0
                   ? item.percent.toFixed(0)
                   : item.percent.toFixed(2)}
@@ -149,7 +146,7 @@ const Statistics: FC<StatisticConfig> = ({ allDealersProducts }) => {
           </tr>
         </thead>
         <tbody>
-          {statisticAverage.map((item, index: number) => (
+          {statisticAverageForHTML.map((item, index: number) => (
             <tr key={index}>
               <td>{item.itemNumber} </td>
               <td>{item.itemCount}</td>

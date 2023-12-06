@@ -1,8 +1,8 @@
-import { CompanyProductConfig } from '../Home.interface'
+import { CompanyProductConfig, SelectedGoodConfig } from '../Home.interface'
 
 export interface LeftWindowConfig {
   allCompanyProducts: Array<CompanyProductConfig>
-  selectedGood: number | null
-  setSelectedGood: (good: number | null) => void
-  isLoading: boolean
+  selectedGood: SelectedGoodConfig | Record<string, never>
+  setSelectedGood: (good: SelectedGoodConfig | Record<string, never>) => void
+  isProductCompanyLoading: boolean
 }

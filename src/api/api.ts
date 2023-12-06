@@ -3,10 +3,10 @@ import axios, { AxiosInstance } from 'axios'
 import { BASE_URL } from '../constants/api.constants'
 
 interface MarkupDealerProductConfig {
-  product_id?: number
+  company_product_id?: number | null
   status: 'markup' | 'unclaimed' | 'postponed' | 'waiting'
   dealer_product_id: number
-  dealer_id?: number
+  serial_number: number
 }
 
 class Api {
@@ -29,12 +29,12 @@ class Api {
   }
 
   markupDealerProduct(params: MarkupDealerProductConfig) {
-    if (params.product_id && params.dealer_id) {
+    if ((params.company_product_id, params.serial_number)) {
       return this.axios.put(
         `/dealers/products/${params.dealer_product_id}/${params.status}/`,
         {
-          product_id: params.product_id,
-          dealer_id: params.dealer_id
+          company_product_id: params.company_product_id,
+          serial_number: params.serial_number
         }
       )
     } else {
@@ -46,6 +46,10 @@ class Api {
 
   getAllDealersProducts() {
     return this.axios.get(`/dealers/products/`)
+  }
+
+  getMachineMatching(dealer_product_id: number) {
+    return this.axios.get(`/company/machine-matching/${dealer_product_id}`)
   }
 }
 

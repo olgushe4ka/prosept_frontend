@@ -10,14 +10,19 @@ interface TableProps {
   data: Array<TableConfig>
   onClickMarkup: ({
     dealer_product_id,
-    dealer_id,
     status
-  }: MarkupButtonConfig) => void
+  }: MarkupButtonConfig) => Promise<void> | undefined
+  startDate: Date
+  endDate: Date
+  onResultClick: (type: 'result' | 'statistic') => void
 }
 
 const Table: React.FC<TableProps> = ({
-  data
-  // onClickMarkup
+  data,
+  onClickMarkup,
+  startDate,
+  endDate,
+  onResultClick
 }) => {
   return (
     <>
@@ -33,24 +38,40 @@ const Table: React.FC<TableProps> = ({
           </tr>
         </thead>
         <tbody>
-          {data.map((item, index: number) => (
-            <tr key={index}>
-              <td className={styles.tableNumber}>{index + 1}</td>
-              <td>{item.name}</td>
-              <td>{item.productMap}</td>
-              <td className={styles.tableStatus}>{item.status}</td>
-              <td className={styles.tableNumberInList}>{item.numberInList}</td>
-              <td className={styles.deleteIcon}>
-                <button
-                  onClick={() => {
-                    // onClickMarkup()
-                  }}
-                >
-                  <MdDeleteOutline />
-                </button>
-              </td>
-            </tr>
-          ))}
+          {data
+            .filter(item => {
+              return (
+                item.date_status.getTime() > startDate.getTime() &&
+                item.date_status.getTime() < endDate.getTime()
+              )
+            })
+            .map((item, index: number) => {
+              return (
+                <tr key={index}>
+                  <td className={styles.tableNumber}>{index + 1}</td>
+                  <td>{item.name}</td>
+                  <td>{item.productMap}</td>
+                  <td className={styles.tableStatus}>{item.status}</td>
+                  <td className={styles.tableNumberInList}>
+                    {item.numberInList}
+                  </td>
+                  <td className={styles.deleteIcon}>
+                    <button
+                      onClick={() => {
+                        onClickMarkup({
+                          dealer_product_id: item.id,
+                          status: 'postponed'
+                        })?.then(() => {
+                          onResultClick('result')
+                        })
+                      }}
+                    >
+                      <MdDeleteOutline />
+                    </button>
+                  </td>
+                </tr>
+              )
+            })}
         </tbody>
       </table>
     </>

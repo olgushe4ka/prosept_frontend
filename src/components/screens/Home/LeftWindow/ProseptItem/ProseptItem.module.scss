@@ -9,6 +9,10 @@
   font-size: 16px;
 }
 
+.name {
+  max-width: 350px;
+}
+
 li input[type='radio']:checked + .proseptItem {
   background-color: #b5e0c3;
 }

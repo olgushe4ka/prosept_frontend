@@ -2,12 +2,15 @@ import { FC } from 'react'
 
 import styles from './ProseptItem.module.scss'
 
+import { SelectedGoodConfig } from '../../Home.interface'
+
 interface IProseptItem {
   article: string
   name: string
-  setSelectedGood: (good: number | null) => void
-  selectedGood: number | null
+  setSelectedGood: (good: SelectedGoodConfig | Record<string, never>) => void
+  selectedGood: SelectedGoodConfig | Record<string, never>
   productId: number
+  serialNumber: number
 }
 
 const ProseptItem: FC<IProseptItem> = ({
@@ -15,7 +18,8 @@ const ProseptItem: FC<IProseptItem> = ({
   name,
   setSelectedGood,
   selectedGood,
-  productId
+  productId,
+  serialNumber
 }) => {
   return (
     <li>
@@ -24,19 +28,22 @@ const ProseptItem: FC<IProseptItem> = ({
         type="radio"
         name="item"
         id={article}
-        checked={selectedGood === productId ? true : false}
+        checked={selectedGood.productId === productId ? true : false}
         onChange={evt => {
-          setSelectedGood(productId)
+          setSelectedGood({
+            productId,
+            serialNumber
+          })
           const target = evt.target as HTMLInputElement
-          if (selectedGood === productId) {
+          if (selectedGood.productId === productId) {
             target.checked = false
-            setSelectedGood(null)
+            setSelectedGood({})
           }
         }}
       />
       <label htmlFor={article} className={styles.proseptItem}>
         <span>{article}</span>
-        <span>{name}</span>
+        <span className={styles.name}>{name}</span>
       </label>
     </li>
   )

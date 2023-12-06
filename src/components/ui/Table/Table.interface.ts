@@ -4,5 +4,6 @@ export interface TableConfig {
   link: string
   status: string
   productMap: string
-  numberInList: string
+  numberInList: number
+  date_status: Date
 }

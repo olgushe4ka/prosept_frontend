@@ -22,6 +22,9 @@ export interface DealerProductConfig {
   date: string
   dealer_id: number
   status: string
+  product_id: number
+  serial_number: number
+  date_status: string
   id: number
 }
 
@@ -44,6 +47,12 @@ export interface SelectedOptionConfig {
 
 export interface MarkupButtonConfig {
   dealer_product_id: number
-  dealer_id?: number
+  company_product_id?: number
+  serial_number?: number
   status: 'markup' | 'unclaimed' | 'postponed' | 'waiting'
+}
+
+export interface SelectedGoodConfig {
+  productId: number
+  serialNumber: number
 }
