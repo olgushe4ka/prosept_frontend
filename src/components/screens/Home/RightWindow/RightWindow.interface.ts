@@ -8,12 +8,9 @@ export interface IRightWindow {
   allDealers: Array<DealerConfig>
   setDealersProductsList: (currentProducts: Array<DealerProductConfig>) => void
   dealersProductsList: Array<DealerProductConfig>
-  onClickMarkup: ({
-    dealer_product_id,
-    dealer_id,
-    status
-  }: MarkupButtonConfig) => void
-  isLoading: boolean
+  onClickMarkup: ({ dealer_product_id, status }: MarkupButtonConfig) => void
+  isDealersProductsLoading: boolean
+  isDisabled: boolean
   history: Array<DealerProductConfig>
   setHistory: (history: Array<DealerProductConfig>) => void
 }

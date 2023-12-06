@@ -14,29 +14,28 @@ import {
   CompanyProductConfig,
   DealerConfig,
   DealerProductConfig,
-  MarkupButtonConfig
+  MarkupButtonConfig,
+  SelectedGoodConfig
 } from './Home.interface'
 import LeftWindow from './LeftWindow/LeftWindow'
 import RightWindow from './RightWindow/RightWindow'
 
 const Home: FC = () => {
   useEffect(() => {
-    setIsLoading(true)
+    setIsDealersProductsLoading(true)
+    setIsDisabled(true)
     Promise.all([
       api.getAllDealers().then(res => {
         setAllDealers(res.data)
       }),
-      api.getAllCompanyProducts().then(res => {
-        setAllCompanyProducts(res.data)
-      }),
-      getAllDealersProducts().then(res => {
+      getAllDealersProducts().then(async res => {
         setDealersProductsList(res.data)
       })
     ])
       .catch(() => {
         setErrorText('Ошибка на сервере. Попробуйте перезагрузить страницу.')
       })
-      .finally(() => setIsLoading(false))
+      .finally(() => setIsDealersProductsLoading(false))
   }, [])
 
   const [allCompanyProducts, setAllCompanyProducts] = useState<
@@ -51,63 +50,67 @@ const Home: FC = () => {
   const [dealersProductsList, setDealersProductsList] = useState<
     Array<DealerProductConfig>
   >([])
-  const [selectedGood, setSelectedGood] = useState<number | null>(null)
+  const [selectedGood, setSelectedGood] = useState<
+    SelectedGoodConfig | Record<string, never>
+  >({})
   const [errorText, setErrorText] = useState<string>('')
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isDisabled, setIsDisabled] = useState<boolean>(false) ///!!!
+  const [isProductsCompanyLoading, setIsProductsCompanyLoading] =
+    useState<boolean>(false)
+  const [isDealersProductsLoading, setIsDealersProductsLoading] =
+    useState<boolean>(false)
   const [history, setHistory] = useState<Array<DealerProductConfig>>([])
 
-  const onClickMarkup = ({
-    dealer_product_id,
-    dealer_id,
-    status
-  }: MarkupButtonConfig) => {
-    if (selectedGood !== null) {
-      setIsLoading(true)
-      api
+  useEffect(() => {
+    setIsProductsCompanyLoading(true)
+    if (dealersProductsList[0])
+      onChangeCurrentDealersGood(dealersProductsList[0].id)
+  }, [dealersProductsList])
+
+  /**
+   * Функция возвращает список наиболее подходящих товаров компании
+   * при изменении текущего товара в карточке дилера
+   * @param id параметр id продукта дилера
+   */
+
+  const onChangeCurrentDealersGood = (id: number) => {
+    setIsDisabled(true)
+    return api
+      .getMachineMatching(id)
+      .then(res => {
+        setAllCompanyProducts(res.data)
+        setSelectedGood({})
+      })
+      .catch(() => {
+        setErrorText('Ошибка на сервере. Попробуйте перезагрузить страницу.')
+      })
+      .finally(() => {
+        setIsProductsCompanyLoading(false)
+        setIsDisabled(false)
+      })
+  }
+
+  const onClickMarkup = ({ dealer_product_id, status }: MarkupButtonConfig) => {
+    setIsProductsCompanyLoading(true)
+    if (status === 'markup' && Object.keys(selectedGood).length === 0) {
+      setIsProductsCompanyLoading(false)
+      setErrorText(
+        'Необходимо выбрать соответствующий товар среди позиций PROSEPT!'
+      )
+      setTimeout(() => setErrorText(''), 2000)
+      return
+    } else {
+      return api
         .markupDealerProduct({
-          product_id: selectedGood,
+          company_product_id: selectedGood.productId,
           status,
           dealer_product_id,
-          dealer_id
+          serial_number: selectedGood.serialNumber
         })
         .then(() => {
           setHistory([dealersProductsList[0], ...history])
           setDealersProductsList(dealersProductsList.slice(1))
-          api
-            .getAllCompanyProducts()
-            .then(res => {
-              setAllCompanyProducts(res.data)
-              setSelectedGood(null)
-            })
-            .catch(console.error)
         })
-        .finally(() => setIsLoading(false))
-    } else {
-      if (status === 'markup') {
-        setIsLoading(false)
-        setErrorText(
-          'Необходимо выбрать соответствующий товар среди позиций PROSEPT!'
-        )
-        setTimeout(() => setErrorText(''), 2000)
-        return
-      }
-      api
-        .markupDealerProduct({
-          status,
-          dealer_product_id
-        })
-        .then(() => {
-          setHistory([dealersProductsList[0], ...history])
-          setDealersProductsList(dealersProductsList.slice(1))
-          api
-            .getAllCompanyProducts()
-            .then(res => {
-              setAllCompanyProducts(res.data)
-              setSelectedGood(null)
-            })
-            .catch(console.error)
-        })
-        .finally(() => setIsLoading(false))
     }
   }
 
@@ -118,6 +121,17 @@ const Home: FC = () => {
     })
   }
 
+  const onResultClick = (type: 'result' | 'statistic') => {
+    // LOADING
+    getAllDealersProducts()
+      .then(() => {
+        type === 'result' ? setIsResultOpen(true) : setIsStatisticsOpen(true)
+      })
+      .catch(() => {
+        setErrorText('Ошибка на сервере. Попробуйте перезагрузить страницу.')
+      })
+  }
+
   return (
     <Layout>
       <>
@@ -126,15 +140,16 @@ const Home: FC = () => {
             allCompanyProducts={allCompanyProducts}
             selectedGood={selectedGood}
             setSelectedGood={setSelectedGood}
-            isLoading={isLoading}
+            isProductCompanyLoading={isProductsCompanyLoading}
           />
           <RightWindow
             allDealers={allDealers}
             setDealersProductsList={setDealersProductsList}
             dealersProductsList={dealersProductsList}
             onClickMarkup={onClickMarkup}
-            isLoading={isLoading}
+            isDealersProductsLoading={isDealersProductsLoading}
             history={history}
+            isDisabled={isDisabled}
             setHistory={setHistory}
           />
         </div>
@@ -142,40 +157,18 @@ const Home: FC = () => {
           <Button
             style="green"
             onClick={() => {
-              setIsLoading(true)
-              getAllDealersProducts()
-                .then(() => setIsResultOpen(true))
-                .catch(() => {
-                  setErrorText(
-                    'Ошибка на сервере. Попробуйте перезагрузить страницу.'
-                  )
-                })
-                .finally(() => {
-                  setIsLoading(false)
-                })
+              onResultClick('result')
             }}
             text="Результаты"
-            disabled={isLoading}
+            disabled={isDisabled}
           />
           <Button
             style="green"
             onClick={() => {
-              setIsLoading(true)
-              getAllDealersProducts()
-                .then(() => {
-                  setIsStatisticsOpen(true)
-                })
-                .catch(() => {
-                  setErrorText(
-                    'Ошибка на сервере. Попробуйте перезагрузить страницу.'
-                  )
-                })
-                .finally(() => {
-                  setIsLoading(false)
-                })
+              onResultClick('statistic')
             }}
             text="Статистика"
-            disabled={isLoading}
+            disabled={isDisabled}
           />
         </div>
         {isResultOpen && (
@@ -183,6 +176,8 @@ const Home: FC = () => {
             <Results
               allDealersProducts={allDealersProducts}
               onClickMarkup={onClickMarkup}
+              allCompanyProducts={allCompanyProducts}
+              onResultClick={onResultClick}
             />
           </Popup>
         )}

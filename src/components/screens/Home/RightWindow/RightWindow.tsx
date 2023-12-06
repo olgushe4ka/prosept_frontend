@@ -15,7 +15,8 @@ const RightWindow: FC<IRightWindow> = ({
   setDealersProductsList,
   dealersProductsList,
   onClickMarkup,
-  isLoading,
+  isDealersProductsLoading,
+  isDisabled,
   history,
   setHistory
 }) => {
@@ -38,13 +39,14 @@ const RightWindow: FC<IRightWindow> = ({
         placeholder={'Выберите дилера'}
       />
       <div className={styles.card}>
-        {isLoading && <img src={preloader} alt="preloader" />}
-        {dealersProductsList[0] && !isLoading && (
+        {isDealersProductsLoading && <img src={preloader} alt="preloader" />}
+        {dealersProductsList[0] && !isDealersProductsLoading && (
           <>
             <div className={styles.good}>
               <div className={styles.arrowContainer}>
                 {history[0] && (
                   <button
+                    disabled={isDisabled}
                     className={styles.arrow}
                     onClick={() => {
                       setDealersProductsList([
@@ -72,6 +74,7 @@ const RightWindow: FC<IRightWindow> = ({
               <div className={styles.arrowContainer}>
                 {backHistory[0] && (
                   <button
+                    disabled={isDisabled}
                     className={styles.arrow}
                     onClick={() => {
                       setBackHistory(backHistory.slice(1))
@@ -91,12 +94,11 @@ const RightWindow: FC<IRightWindow> = ({
                 onClick={() => {
                   onClickMarkup({
                     dealer_product_id: dealersProductsList[0].id,
-                    dealer_id: dealersProductsList[0].dealer_id,
                     status: 'markup'
                   })
                 }}
                 text="Да"
-                disabled={isLoading}
+                disabled={isDisabled}
               />
               <Button
                 style="black"
@@ -107,7 +109,7 @@ const RightWindow: FC<IRightWindow> = ({
                   })
                 }}
                 text="Нет"
-                disabled={isLoading}
+                disabled={isDisabled}
               />
               <Button
                 style="black"
@@ -118,12 +120,12 @@ const RightWindow: FC<IRightWindow> = ({
                   })
                 }}
                 text="Отложить"
-                disabled={isLoading}
+                disabled={isDisabled}
               />
             </div>
           </>
         )}
-        {!dealersProductsList[0] && !isLoading && (
+        {!dealersProductsList[0] && !isDealersProductsLoading && (
           <p className={styles.endList}>
             Сейчас все товары размечены. Воспользуйтесь кнопкой результаты, если
             желаете внести изменения.

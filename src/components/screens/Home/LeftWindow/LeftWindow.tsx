@@ -12,7 +12,7 @@ const LeftWindow: FC<LeftWindowConfig> = ({
   allCompanyProducts,
   selectedGood,
   setSelectedGood,
-  isLoading
+  isProductCompanyLoading
 }) => {
   const [goodsQuantity, setGoodsQuantity] = useState<number>(5) //количество отображаемых товаров
   const [searchRequest, setSearchRequest] = useState<string>('') //поисковый запрос
@@ -56,14 +56,14 @@ const LeftWindow: FC<LeftWindowConfig> = ({
         </select>
       </label>
       <ul className={styles.list}>
-        {isLoading ? (
+        {isProductCompanyLoading ? (
           <div className={styles.preloaderWrapper}>
             <img src={preloader} alt="preloader" width="64px" />
           </div>
         ) : (
           searchGoods
             .slice(0, goodsQuantity)
-            .map(good => (
+            .map((good, i) => (
               <ProseptItem
                 key={good.article}
                 article={good.article}
@@ -71,6 +71,7 @@ const LeftWindow: FC<LeftWindowConfig> = ({
                 selectedGood={selectedGood}
                 productId={good.id}
                 setSelectedGood={setSelectedGood}
+                serialNumber={i + 1}
               />
             ))
         )}
