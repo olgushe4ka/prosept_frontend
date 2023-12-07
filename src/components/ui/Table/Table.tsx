@@ -61,6 +61,7 @@ const Table: React.FC<TableProps> = ({
                         onResultClick('result')
                       })
                     }}
+                    disabled={item.status === 'Отложить'}
                   >
                     <MdDeleteOutline />
                   </button>
