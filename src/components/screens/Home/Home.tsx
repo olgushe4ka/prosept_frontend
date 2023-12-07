@@ -63,12 +63,6 @@ const Home: FC = () => {
   const [history, setHistory] = useState<Array<DealerProductConfig>>([])
   const [isPopupLoading, setIsPopupLoading] = useState<boolean>(false)
 
-  /**
-   * Функция возвращает список наиболее подходящих товаров компании
-   * при изменении текущего товара в карточке дилера
-   * @param id параметр id продукта дилера
-   */
-
   const onChangeCurrentDealersGood = (id: number) => {
     setIsDisabled(true)
     return api

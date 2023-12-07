@@ -4,21 +4,8 @@ import styles from './Results.module.scss'
 
 import Period from '../../ui/Period/Period'
 import Table from '../../ui/Table/Table'
-import {
-  CompanyProductConfig,
-  DealerProductConfig,
-  MarkupButtonConfig
-} from '../Home/Home.interface'
 
-interface ResultsConfig {
-  allDealersProducts: Array<DealerProductConfig>
-  onClickMarkup: ({
-    dealer_product_id,
-    status
-  }: MarkupButtonConfig) => Promise<void> | undefined
-  allCompanyProducts: Array<CompanyProductConfig>
-  onResultClick: (type: 'result' | 'statistic') => void
-}
+import { ResultsConfig } from './Results.interface'
 
 const Results: FC<ResultsConfig> = ({
   allDealersProducts,
@@ -69,13 +56,17 @@ const Results: FC<ResultsConfig> = ({
         setEndDate={setEndDate}
       />
       <div className={styles.datePickerContainer}></div>
-      <Table
-        startDate={startDate}
-        endDate={endDate}
-        data={itemsList}
-        onClickMarkup={onClickMarkup}
-        onResultClick={onResultClick}
-      />
+      {itemsList.length === 0 ? (
+        <p>Нет размеченных товаров за этот период</p>
+      ) : (
+        <Table
+          startDate={startDate}
+          endDate={endDate}
+          data={itemsList}
+          onClickMarkup={onClickMarkup}
+          onResultClick={onResultClick}
+        />
+      )}
     </div>
   )
 }

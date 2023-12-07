@@ -5,14 +5,11 @@ import styles from './Statistics.module.scss'
 
 import Period from '../../ui/Period/Period'
 
-import { StatisticAverageConfig, StatisticConfig } from './Statistic.interface'
-
-interface statisticDataConfig {
-  markup: number
-  unclaimed: number
-  postponed: number
-  waiting: number
-}
+import {
+  StatisticAverageConfig,
+  StatisticConfig,
+  statisticDataConfig
+} from './Statistic.interface'
 
 const Statistics: FC<StatisticConfig> = ({ allDealersProducts }) => {
   const d = new Date()

@@ -16,7 +16,7 @@ Frontend для проекта хакатона от "Яндекс.Практи�
 - Клонировать репозиторий и перейти в него
 
 ```sh
-git clone git@github.com:olgushe4ka/prospect_frontend.git
+git clone git@github.com:olgushe4ka/prosept_frontend.git
 code prospect_frontend
 ```
 
@@ -64,6 +64,7 @@ npm run dev
 - [Axios](https://axios-http.com/ru/docs/intro)
 - [SCSS](https://www.npmjs.com/package/scss)
 - [Normalize.css](https://necolas.github.io/normalize.css/)
+- [Lato font](https://fonts.google.com/specimen/Lato)
 
 - [Ссылка на репозиторий бэкенда](https://github.com/Anastasia7Si/project_backend)
 - [Ссылка на репозиторий датасаенс](https://github.com/BAR2LEHI/prosept_competition_2023)

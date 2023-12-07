@@ -1,3 +1,5 @@
+import { endOfDay, startOfDay } from 'date-fns'
+import { utcToZonedTime, zonedTimeToUtc } from 'date-fns-tz'
 import ru from 'date-fns/locale/ru'
 import { FC } from 'react'
 import DatePicker, { registerLocale } from 'react-datepicker'
@@ -18,17 +20,17 @@ const Period: FC<PeriodConfig> = ({
   setEndDate
 }) => {
   registerLocale('ru', ru)
+
+  const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
+
   return (
     <div className={styles.datePickers}>
       <p>Период с</p>
       <DatePicker
-        selected={startDate}
+        selected={zonedTimeToUtc(startDate, userTimeZone)}
         onChange={(newDate: Date) => {
-          const d = new Date(newDate)
-          const year = d.getFullYear()
-          const month = d.getMonth()
-          const date = d.getDate()
-          setStartDate(new Date(year, month, date, 0, 0, 0))
+          const zonedStartDate = utcToZonedTime(newDate, userTimeZone)
+          setStartDate(startOfDay(zonedStartDate))
         }}
         selectsStart
         startDate={startDate}
@@ -40,13 +42,10 @@ const Period: FC<PeriodConfig> = ({
       />
       <p>по</p>
       <DatePicker
-        selected={endDate}
+        selected={zonedTimeToUtc(endDate, userTimeZone)}
         onChange={(newDate: Date) => {
-          const d = new Date(newDate)
-          const year = d.getFullYear()
-          const month = d.getMonth()
-          const date = d.getDate()
-          setEndDate(new Date(year, month, date, 23, 59, 59))
+          const zonedEndDate = utcToZonedTime(newDate, userTimeZone)
+          setEndDate(endOfDay(zonedEndDate))
         }}
         selectsEnd
         startDate={startDate}

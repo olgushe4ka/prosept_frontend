@@ -24,6 +24,12 @@
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
+.text {
+  font-size: large;
+  font-weight: 700;
+  margin-top: 70px;
+}
+
 .table td:first-child,
 .table th:first-child {
   border-left: none;
@@ -91,5 +97,8 @@
     transform 0.2s ease-in-out;
   &:active {
     transform: scale(1.1);
+  }
+  &:disabled {
+    cursor: default; 
   }
 }
