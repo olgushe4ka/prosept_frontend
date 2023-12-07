@@ -26,6 +26,7 @@
 }
 
 .list {
+  position: relative;
   list-style-type: none;
   width: 100%;
   margin-top: 35px;
@@ -58,12 +59,4 @@
   background-color: hsl(0, 0%, 100%);
   cursor: pointer;
   color: hsl(0, 0%, 30%);
-}
-
-.preloaderWrapper {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }

@@ -20,7 +20,6 @@
   background-color: white;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   border-radius: 5px;
   min-width: 700px;
@@ -31,6 +30,7 @@
 
 .content {
   max-height: calc(100% - 30px);
+  height: calc(100% - 30px);
   padding: 30px 70px 70px;
   box-sizing: border-box;
   overflow: hidden;

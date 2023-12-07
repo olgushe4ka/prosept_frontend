@@ -25,6 +25,11 @@ const RightWindow: FC<IRightWindow> = ({
 }) => {
   const [backHistory, setBackHistory] = useState<Array<DealerProductConfig>>([])
 
+  /**
+   * При нажатии на кнопку разметки записать товар в историю,
+   * перейти к следующему продукту дилера и запросить для него
+   * новый список товаров для сопоставления
+   */
   const handleButtonClick = (
     status: 'markup' | 'unclaimed' | 'postponed' | 'waiting'
   ) => {
@@ -40,12 +45,19 @@ const RightWindow: FC<IRightWindow> = ({
     })
   }
 
+  /**
+   * При изменении списка выбранных дилеров
+   * поменять список продуктов дилера
+   * отправить запрос на сопоставления для первого продукта в списке
+   */
   const handleSelect = (newValue: string | string[] | null) => {
     const temp = allDealers
       .filter(
         dealer => newValue?.includes(dealer.name) || newValue?.length === 0
       )
-      .map(dealer => dealer.dealer_product)
+      .map(dealer =>
+        dealer.dealer_product.filter(product => product.status === 'waiting')
+      )
       .flat()
     setDealersProductsList(temp)
     setIsProductsCompanyLoading(true)

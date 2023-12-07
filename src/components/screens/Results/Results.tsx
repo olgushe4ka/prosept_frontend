@@ -1,27 +1,24 @@
 import { FC, useState } from 'react'
 
-import styles from './Results.module.scss'
-
+import { getTwoDateForCurrentDayPeriod } from '../../../utils/getTwoDateForCurrentDayPeriod'
 import Period from '../../ui/Period/Period'
 import Table from '../../ui/Table/Table'
 
 import { ResultsConfig } from './Results.interface'
 
 const Results: FC<ResultsConfig> = ({
-  allDealersProducts,
+  markedDealersProducts,
   onClickMarkup,
-  onResultClick
+  onResultClick,
+  startDateHistory,
+  setStartDateHistory,
+  endDateHistory,
+  setEndDateHistory
 }) => {
-  const d = new Date()
-  const currentYear = d.getFullYear()
-  const currentMonth = d.getMonth()
-  const currentDate = d.getDate()
-  const [startDate, setStartDate] = useState(
-    new Date(currentYear, currentMonth, currentDate, 0, 0, 0)
-  )
-  const [endDate, setEndDate] = useState(
-    new Date(currentYear, currentMonth, currentDate, 23, 59, 59)
-  )
+  const { start, end } = getTwoDateForCurrentDayPeriod()
+
+  const [startDate, setStartDate] = useState(startDateHistory || start)
+  const [endDate, setEndDate] = useState(endDateHistory || end)
 
   const mapStatusToText = (status: string) => {
     switch (status) {
@@ -36,7 +33,7 @@ const Results: FC<ResultsConfig> = ({
     }
   }
 
-  const itemsList = allDealersProducts.map(product => ({
+  const itemsList = markedDealersProducts?.map(product => ({
     id: product.id,
     name: product.product_name,
     link: product.product_url,
@@ -47,18 +44,17 @@ const Results: FC<ResultsConfig> = ({
   }))
 
   return (
-    <div className={styles.resultPage}>
+    <div>
       <h3>Результаты</h3>
       <Period
         startDate={startDate}
         endDate={endDate}
         setStartDate={setStartDate}
         setEndDate={setEndDate}
+        setStartDateHistory={setStartDateHistory}
+        setEndDateHistory={setEndDateHistory}
       />
-      <div className={styles.datePickerContainer}></div>
-      {itemsList.length === 0 ? (
-        <p>Нет размеченных товаров за этот период</p>
-      ) : (
+      {itemsList?.length !== 0 && (
         <Table
           startDate={startDate}
           endDate={endDate}

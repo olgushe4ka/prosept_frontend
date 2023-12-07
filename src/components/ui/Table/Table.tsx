@@ -11,15 +11,19 @@ const Table: React.FC<TableProps> = ({
   endDate,
   onResultClick
 }) => {
-  const filteredData = data.filter(item => {
+  const filteredData = data?.filter(item => {
     return (
       item.date_status.getTime() > startDate.getTime() &&
       item.date_status.getTime() < endDate.getTime()
     )
   })
 
-  if (filteredData.length === 0) {
-    return <p className={styles.text}>Нет размеченных товаров за этот период</p>
+  if (filteredData?.length === 0) {
+    return (
+      <p className={styles.badResponse}>
+        Нет размеченных товаров за этот период
+      </p>
+    )
   }
 
   return (
@@ -36,7 +40,7 @@ const Table: React.FC<TableProps> = ({
           </tr>
         </thead>
         <tbody>
-          {filteredData.map((item, index: number) => {
+          {filteredData?.map((item, index: number) => {
             return (
               <tr key={index}>
                 <td className={styles.tableNumber}>{index + 1}</td>
@@ -61,6 +65,10 @@ const Table: React.FC<TableProps> = ({
                         onResultClick('result')
                       })
                     }}
+                    className={
+                      item.status === 'Отложить' ? 'disabledButton' : ''
+                    }
+                    style={{ cursor: 'pointer' }}
                     disabled={item.status === 'Отложить'}
                   >
                     <MdDeleteOutline />

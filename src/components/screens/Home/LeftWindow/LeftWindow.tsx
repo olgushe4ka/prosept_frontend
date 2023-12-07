@@ -60,7 +60,9 @@ const LeftWindow: FC<LeftWindowConfig> = ({
       </label>
       <ul className={styles.list}>
         {isProductCompanyLoading ? (
-          <Preloader />
+          <>
+            <Preloader dsReq={true} />
+          </>
         ) : (
           searchGoods
             .slice(0, goodsQuantity)

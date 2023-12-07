@@ -3,6 +3,9 @@ import 'react-datepicker/dist/react-datepicker.css'
 
 import styles from './Statistics.module.scss'
 
+import { calculateAverage } from '../../../utils/calculateAverage'
+import { calculatePercentage } from '../../../utils/calculatePercentage'
+import { getTwoDateForCurrentDayPeriod } from '../../../utils/getTwoDateForCurrentDayPeriod'
 import Period from '../../ui/Period/Period'
 
 import {
@@ -12,17 +15,10 @@ import {
 } from './Statistic.interface'
 
 const Statistics: FC<StatisticConfig> = ({ allDealersProducts }) => {
-  const d = new Date()
-  const currentYear = d.getFullYear()
-  const currentMonth = d.getMonth()
-  const currentDate = d.getDate()
+  const { start, end } = getTwoDateForCurrentDayPeriod()
 
-  const [startDate, setStartDate] = useState(
-    new Date(currentYear, currentMonth, currentDate, 0, 0, 0)
-  )
-  const [endDate, setEndDate] = useState(
-    new Date(currentYear, currentMonth, currentDate, 23, 59, 59)
-  )
+  const [startDate, setStartDate] = useState(start)
+  const [endDate, setEndDate] = useState(end)
 
   const statisticData: statisticDataConfig = {
     markup: 0,
@@ -57,22 +53,8 @@ const Statistics: FC<StatisticConfig> = ({ allDealersProducts }) => {
     })
   }
 
-  const calculatePercentage = (value: number, total: number) =>
-    (value / total) * 100
-
   const total =
     statisticData.unclaimed + statisticData.postponed + statisticData.markup
-
-  const calculateAverage = (data: Record<string, number>): number => {
-    let countNumber: number = 0
-    let sumMarkups: number = 0
-    for (const count of Object.keys(data)) {
-      countNumber += Number(data[count]) * Number(count)
-      sumMarkups += Number(data[count])
-    }
-    const average = countNumber / sumMarkups
-    return Number(average.toFixed(2))
-  }
 
   const statistic = [
     {

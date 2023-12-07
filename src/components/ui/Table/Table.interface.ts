@@ -11,7 +11,7 @@ export interface TableConfig {
 }
 
 export interface TableProps {
-  data: Array<TableConfig>
+  data: Array<TableConfig> | undefined
   onClickMarkup: ({
     dealer_product_id,
     status

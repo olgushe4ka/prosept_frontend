@@ -24,10 +24,11 @@
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
-.text {
+.badResponse {
   font-size: large;
   font-weight: 700;
   margin-top: 70px;
+  min-width: 1000px;
 }
 
 .table td:first-child,
@@ -99,6 +100,6 @@
     transform: scale(1.1);
   }
   &:disabled {
-    cursor: default; 
+    cursor: default;
   }
 }

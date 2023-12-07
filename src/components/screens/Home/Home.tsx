@@ -3,6 +3,7 @@ import { FC, useEffect, useState } from 'react'
 import styles from './Home.module.scss'
 
 import api from '../../../api/api'
+import { NO_SELECT_ERROR, SERVER_ERROR } from '../../../constants/api.constants'
 import Layout from '../../layout/Layout'
 import Button from '../../ui/Button/Button'
 import ModalError from '../../ui/ModalError/ModalError'
@@ -21,6 +22,10 @@ import LeftWindow from './LeftWindow/LeftWindow'
 import RightWindow from './RightWindow/RightWindow'
 
 const Home: FC = () => {
+  /**
+   * Загрузка всех дилеров, продуктов дилеров,
+   * сопоставленных товаров по первому продукту дилера
+   */
   useEffect(() => {
     setIsDealersProductsLoading(true)
     setIsDisabled(true)
@@ -29,13 +34,17 @@ const Home: FC = () => {
         setAllDealers(res.data)
       }),
       getAllDealersProducts().then(async res => {
-        setDealersProductsList(res.data)
+        setDealersProductsList(
+          res.data.filter((product: DealerProductConfig) => {
+            return product.status === 'waiting'
+          })
+        )
         setIsProductsCompanyLoading(true)
         setIsDealersProductsLoading(false)
         await onChangeCurrentDealersGood(res.data[0].id)
       })
     ]).catch(() => {
-      setErrorText('Ошибка на сервере. Попробуйте перезагрузить страницу.')
+      setErrorText(SERVER_ERROR)
     })
   }, [])
 
@@ -62,7 +71,16 @@ const Home: FC = () => {
     useState<boolean>(false)
   const [history, setHistory] = useState<Array<DealerProductConfig>>([])
   const [isPopupLoading, setIsPopupLoading] = useState<boolean>(false)
+  const [startDateHistory, setStartDateHistory] = useState<Date>()
+  const [endDateHistory, setEndDateHistory] = useState<Date>()
+  const [markedDealersProducts, setMarkedDealersProducts] =
+    useState<Array<DealerProductConfig>>()
 
+  /**
+   * При изменении текущего товара дилера
+   * отправляется запрос на наиболее подходящие
+   * продукты компании для сопоставления
+   */
   const onChangeCurrentDealersGood = (id: number) => {
     setIsDisabled(true)
     return api
@@ -72,7 +90,7 @@ const Home: FC = () => {
         setSelectedGood({})
       })
       .catch(() => {
-        setErrorText('Ошибка на сервере. Попробуйте перезагрузить страницу.')
+        setErrorText(SERVER_ERROR)
       })
       .finally(() => {
         setIsProductsCompanyLoading(false)
@@ -80,12 +98,15 @@ const Home: FC = () => {
       })
   }
 
+  /**
+   * При клике на кнопку разметки
+   * отправляется запрос на изменение
+   * статуса в БД
+   */
   const onClickMarkup = ({ dealer_product_id, status }: MarkupButtonConfig) => {
     if (status === 'markup' && Object.keys(selectedGood).length === 0) {
       setIsProductsCompanyLoading(false)
-      setErrorText(
-        'Необходимо выбрать соответствующий товар среди позиций PROSEPT!'
-      )
+      setErrorText(NO_SELECT_ERROR)
       setTimeout(() => setErrorText(''), 2000)
       return
     } else {
@@ -100,6 +121,9 @@ const Home: FC = () => {
     }
   }
 
+  /**
+   * Получить все продукты дилера
+   */
   const getAllDealersProducts = () => {
     return api.getAllDealersProducts().then(res => {
       setAllDealersProducts(res.data)
@@ -107,10 +131,22 @@ const Home: FC = () => {
     })
   }
 
+  /**
+   * При клике на кнопку "Результат" или "Статистика"
+   * открыть модальное окно, получить список всех продуктов дилера,
+   * выбрать только размеченные
+   */
   const onResultClick = (type: 'result' | 'statistic') => {
     setIsPopupLoading(true)
     type === 'result' ? setIsResultOpen(true) : setIsStatisticsOpen(true)
     getAllDealersProducts()
+      .then(res => {
+        setMarkedDealersProducts(
+          res.data.filter(
+            (product: DealerProductConfig) => product.status !== 'waiting'
+          )
+        )
+      })
       .catch(() => {
         setErrorText('Ошибка на сервере. Попробуйте перезагрузить страницу.')
       })
@@ -167,10 +203,13 @@ const Home: FC = () => {
         {isResultOpen && (
           <Popup setIsOpen={setIsResultOpen} isPopupLoading={isPopupLoading}>
             <Results
-              allDealersProducts={allDealersProducts}
+              markedDealersProducts={markedDealersProducts}
               onClickMarkup={onClickMarkup}
-              allCompanyProducts={allCompanyProducts}
               onResultClick={onResultClick}
+              startDateHistory={startDateHistory}
+              endDateHistory={endDateHistory}
+              setStartDateHistory={setStartDateHistory}
+              setEndDateHistory={setEndDateHistory}
             />
           </Popup>
         )}

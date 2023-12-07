@@ -20,3 +20,8 @@ body {
 .react-datepicker__tab-loop {
   position: absolute;
 }
+
+.disabledButton {
+  pointer-events: none;
+  opacity: 0.6;
+}

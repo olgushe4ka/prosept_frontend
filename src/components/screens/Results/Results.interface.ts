@@ -1,15 +1,14 @@
-import {
-  CompanyProductConfig,
-  DealerProductConfig,
-  MarkupButtonConfig
-} from '../Home/Home.interface'
+import { DealerProductConfig, MarkupButtonConfig } from '../Home/Home.interface'
 
 export interface ResultsConfig {
-  allDealersProducts: Array<DealerProductConfig>
+  markedDealersProducts: Array<DealerProductConfig> | undefined
   onClickMarkup: ({
     dealer_product_id,
     status
   }: MarkupButtonConfig) => Promise<void> | undefined
-  allCompanyProducts: Array<CompanyProductConfig>
   onResultClick: (type: 'result' | 'statistic') => void
+  startDateHistory: Date | undefined
+  endDateHistory: Date | undefined
+  setStartDateHistory: (date: Date) => void
+  setEndDateHistory: (date: Date) => void
 }

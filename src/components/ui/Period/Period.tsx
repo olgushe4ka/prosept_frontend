@@ -9,6 +9,8 @@ import styles from './Period.module.scss'
 interface PeriodConfig {
   setStartDate: (date: Date) => void
   setEndDate: (date: Date) => void
+  setStartDateHistory?: (date: Date) => void
+  setEndDateHistory?: (date: Date) => void
   startDate: Date
   endDate: Date
 }
@@ -17,7 +19,9 @@ const Period: FC<PeriodConfig> = ({
   startDate,
   setStartDate,
   endDate,
-  setEndDate
+  setEndDate,
+  setStartDateHistory,
+  setEndDateHistory
 }) => {
   registerLocale('ru', ru)
 
@@ -31,6 +35,8 @@ const Period: FC<PeriodConfig> = ({
         onChange={(newDate: Date) => {
           const zonedStartDate = utcToZonedTime(newDate, userTimeZone)
           setStartDate(startOfDay(zonedStartDate))
+          if (setStartDateHistory)
+            setStartDateHistory(startOfDay(zonedStartDate))
         }}
         selectsStart
         startDate={startDate}
@@ -46,6 +52,7 @@ const Period: FC<PeriodConfig> = ({
         onChange={(newDate: Date) => {
           const zonedEndDate = utcToZonedTime(newDate, userTimeZone)
           setEndDate(endOfDay(zonedEndDate))
+          if (setEndDateHistory) setEndDateHistory(endOfDay(zonedEndDate))
         }}
         selectsEnd
         startDate={startDate}
