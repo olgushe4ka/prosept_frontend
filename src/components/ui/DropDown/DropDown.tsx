@@ -16,12 +16,14 @@ interface DropDownProps {
   items: Dealer[]
   onSelect: (selectedValues: string[] | string | null) => void
   placeholder: string
+  disabled: boolean
 }
 
 const DropDown: React.FC<DropDownProps> = ({
   items,
   onSelect,
-  placeholder
+  placeholder,
+  disabled
 }) => {
   const handleSelect = (selectedOptions: MultiValue<Dealer>) => {
     if (selectedOptions) {
@@ -74,6 +76,7 @@ const DropDown: React.FC<DropDownProps> = ({
       styles={customStyles}
       isClearable
       isMulti
+      isDisabled={disabled}
     />
   )
 }

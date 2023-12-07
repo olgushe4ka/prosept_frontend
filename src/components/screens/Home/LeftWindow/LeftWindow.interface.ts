@@ -5,4 +5,5 @@ export interface LeftWindowConfig {
   selectedGood: SelectedGoodConfig | Record<string, never>
   setSelectedGood: (good: SelectedGoodConfig | Record<string, never>) => void
   isProductCompanyLoading: boolean
+  disabled: boolean
 }

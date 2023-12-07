@@ -3,9 +3,9 @@ import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
 
 import styles from './RightWindow.module.scss'
 
-import preloader from '../../../../images/preloader.gif'
 import Button from '../../../ui/Button/Button'
 import DropDown from '../../../ui/DropDown/DropDown'
+import Preloader from '../../../ui/Preloader/Preloader'
 import { DealerProductConfig } from '../Home.interface'
 
 import { IRightWindow } from './RightWindow.interface'
@@ -18,9 +18,40 @@ const RightWindow: FC<IRightWindow> = ({
   isDealersProductsLoading,
   isDisabled,
   history,
-  setHistory
+  setHistory,
+  disabled,
+  onChangeCurrentDealersGood,
+  setIsProductsCompanyLoading
 }) => {
   const [backHistory, setBackHistory] = useState<Array<DealerProductConfig>>([])
+
+  const handleButtonClick = (
+    status: 'markup' | 'unclaimed' | 'postponed' | 'waiting'
+  ) => {
+    setIsProductsCompanyLoading(true)
+    onClickMarkup({
+      dealer_product_id: dealersProductsList[0].id,
+      status
+    })?.then(() => {
+      setHistory([dealersProductsList[0], ...history])
+      setBackHistory(backHistory.slice(1))
+      setDealersProductsList(dealersProductsList.slice(1))
+      onChangeCurrentDealersGood(dealersProductsList[1].id)
+    })
+  }
+
+  const handleSelect = (newValue: string | string[] | null) => {
+    const temp = allDealers
+      .filter(
+        dealer => newValue?.includes(dealer.name) || newValue?.length === 0
+      )
+      .map(dealer => dealer.dealer_product)
+      .flat()
+    setDealersProductsList(temp)
+    setIsProductsCompanyLoading(true)
+    onChangeCurrentDealersGood(temp[0].id)
+  }
+
   return (
     <section className={styles.rightWindow}>
       <DropDown
@@ -28,33 +59,30 @@ const RightWindow: FC<IRightWindow> = ({
           value: dealer.name,
           label: dealer.name
         }))}
-        onSelect={newValue => {
-          setDealersProductsList(
-            allDealers
-              .filter(dealer => newValue?.includes(dealer.name))
-              .map(dealer => dealer.dealer_product)
-              .flat()
-          )
-        }}
+        onSelect={handleSelect}
         placeholder={'Выберите дилера'}
+        disabled={disabled}
       />
       <div className={styles.card}>
-        {isDealersProductsLoading && <img src={preloader} alt="preloader" />}
+        {isDealersProductsLoading && <Preloader />}
         {dealersProductsList[0] && !isDealersProductsLoading && (
           <>
             <div className={styles.good}>
               <div className={styles.arrowContainer}>
                 {history[0] && (
                   <button
+                    title="Вернуться к предыдущему товару дилера"
                     disabled={isDisabled}
                     className={styles.arrow}
                     onClick={() => {
+                      setIsProductsCompanyLoading(true)
                       setDealersProductsList([
                         history[0],
                         ...dealersProductsList
                       ])
                       setHistory(history.slice(1))
                       setBackHistory([dealersProductsList[0], ...backHistory])
+                      onChangeCurrentDealersGood(history[0].id)
                     }}
                   >
                     <FaArrowLeft />
@@ -74,12 +102,15 @@ const RightWindow: FC<IRightWindow> = ({
               <div className={styles.arrowContainer}>
                 {backHistory[0] && (
                   <button
+                    title="Перейти к следующему товару дилера"
                     disabled={isDisabled}
                     className={styles.arrow}
                     onClick={() => {
+                      setIsProductsCompanyLoading(true)
                       setBackHistory(backHistory.slice(1))
                       setHistory([dealersProductsList[0], ...history])
                       setDealersProductsList(dealersProductsList.slice(1))
+                      onChangeCurrentDealersGood(dealersProductsList[1].id)
                     }}
                   >
                     <FaArrowRight />
@@ -90,35 +121,23 @@ const RightWindow: FC<IRightWindow> = ({
 
             <div className={styles.buttons}>
               <Button
+                title="Товар дилера соответствует товару производителя"
                 style="black"
-                onClick={() => {
-                  onClickMarkup({
-                    dealer_product_id: dealersProductsList[0].id,
-                    status: 'markup'
-                  })
-                }}
+                onClick={() => handleButtonClick('markup')}
                 text="Да"
                 disabled={isDisabled}
               />
               <Button
+                title="Товар дилера не соответствует товару производителя"
                 style="black"
-                onClick={() => {
-                  onClickMarkup({
-                    dealer_product_id: dealersProductsList[0].id,
-                    status: 'unclaimed'
-                  })
-                }}
+                onClick={() => handleButtonClick('unclaimed')}
                 text="Нет"
                 disabled={isDisabled}
               />
               <Button
+                title="Вернуться к этому товару позже"
                 style="black"
-                onClick={() => {
-                  onClickMarkup({
-                    dealer_product_id: dealersProductsList[0].id,
-                    status: 'postponed'
-                  })
-                }}
+                onClick={() => handleButtonClick('postponed')}
                 text="Отложить"
                 disabled={isDisabled}
               />

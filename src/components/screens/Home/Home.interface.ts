@@ -23,6 +23,7 @@ export interface DealerProductConfig {
   dealer_id: number
   status: string
   product_id: number
+  product: { name_1c: string } | null
   serial_number: number
   date_status: string
   id: number

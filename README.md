@@ -1,44 +1,69 @@
-# Frontend for the "Яндекс.Практикум" and "ПРОСЕПТ" hackathon project
+# Система разметки товаров
 
-## Team Information
+Frontend для проекта хакатона от "Яндекс.Практикум" и "ПРОСЕПТ"
+
+## Сведения о команде
 
 - [Ярослав Патрикеев](https://github.com/yaroslav-patrikeev)
 - [Ольга Семёнова](https://github.com/olgushe4ka)
 
-## Application Link
+## Ссылка на приложение
 
 [Система разметки товаров](https://proseptmatching.zapto.org/)
 
-## Build and Run Instructions
+## Инструкция по сборке и запуску
 
-### Prerequisites
+- Клонировать репозиторий и перейти в него
 
-- Node.js (v14 or later)
-- npm (v7 or later)
-- TypeScript (v5.2.2)
+```sh
+git clone git@github.com:olgushe4ka/prospect_frontend.git
+code prospect_frontend
+```
 
-### Installation
+- Установить зависимости
 
-git clone https://github.com/olgushe4ka/prospect_frontend
-cd prospect_frontend
+```sh
 npm ci
+```
 
-### Development
+### Для запуска в прод-режиме
 
-npm run start
-Visit http://localhost:5173 in your browser.
+- Создать оптимизированную сборку в папке dist
 
-### Production Build
-
+```sh
 npm run build
+```
 
-### Technology Stack
+- Запустить приложение из папки dist
 
-React
-TypeScript
-Axios
+```sh
+npm run start
+```
 
-### Additional Links
+### Для запуска в дев-режиме
 
-[Link to Backend Repository](https://github.com/Anastasia7Si/project_backend)
-[Link to DS Repository](https://github.com/BAR2LEHI/prosept_competition_2023)
+- Запустить приложение в дев-режиме
+
+```sh
+npm run dev
+```
+
+## Стэк технологий
+
+- HTML, CSS, TypeScript, React
+- препроцессор SCSS, модульные стили
+- сборщик Vite
+
+## Ссылки
+
+- [React](https://react.dev/)
+- [Vite](https://vite-docs-ru.vercel.app/)
+- [React Icons](https://react-icons.github.io/react-icons/)
+- [React Select](https://react-select.com/)
+- [React Date Picker](https://reactdatepicker.com/)
+- [Axios](https://axios-http.com/ru/docs/intro)
+- [SCSS](https://www.npmjs.com/package/scss)
+- [Normalize.css](https://necolas.github.io/normalize.css/)
+
+- [Link to Backend Repository](https://github.com/Anastasia7Si/project_backend)
+- [Link to DS Repository](https://github.com/BAR2LEHI/prosept_competition_2023)

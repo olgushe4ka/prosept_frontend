@@ -29,7 +29,6 @@ const Results: FC<ResultsConfig> = ({
   const currentYear = d.getFullYear()
   const currentMonth = d.getMonth()
   const currentDate = d.getDate()
-
   const [startDate, setStartDate] = useState(
     new Date(currentYear, currentMonth, currentDate, 0, 0, 0)
   )
@@ -55,7 +54,7 @@ const Results: FC<ResultsConfig> = ({
     name: product.product_name,
     link: product.product_url,
     status: mapStatusToText(product.status),
-    productMap: String(product.product_id),
+    productMap: String(product.product?.name_1c),
     numberInList: Number(product.serial_number),
     date_status: new Date(product.date_status)
   }))

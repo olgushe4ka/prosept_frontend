@@ -30,12 +30,13 @@ const Home: FC = () => {
       }),
       getAllDealersProducts().then(async res => {
         setDealersProductsList(res.data)
+        setIsProductsCompanyLoading(true)
+        setIsDealersProductsLoading(false)
+        await onChangeCurrentDealersGood(res.data[0].id)
       })
-    ])
-      .catch(() => {
-        setErrorText('Ошибка на сервере. Попробуйте перезагрузить страницу.')
-      })
-      .finally(() => setIsDealersProductsLoading(false))
+    ]).catch(() => {
+      setErrorText('Ошибка на сервере. Попробуйте перезагрузить страницу.')
+    })
   }, [])
 
   const [allCompanyProducts, setAllCompanyProducts] = useState<
@@ -54,18 +55,13 @@ const Home: FC = () => {
     SelectedGoodConfig | Record<string, never>
   >({})
   const [errorText, setErrorText] = useState<string>('')
-  const [isDisabled, setIsDisabled] = useState<boolean>(false) ///!!!
+  const [isDisabled, setIsDisabled] = useState<boolean>(false)
   const [isProductsCompanyLoading, setIsProductsCompanyLoading] =
     useState<boolean>(false)
   const [isDealersProductsLoading, setIsDealersProductsLoading] =
     useState<boolean>(false)
   const [history, setHistory] = useState<Array<DealerProductConfig>>([])
-
-  useEffect(() => {
-    setIsProductsCompanyLoading(true)
-    if (dealersProductsList[0])
-      onChangeCurrentDealersGood(dealersProductsList[0].id)
-  }, [dealersProductsList])
+  const [isPopupLoading, setIsPopupLoading] = useState<boolean>(false)
 
   /**
    * Функция возвращает список наиболее подходящих товаров компании
@@ -91,7 +87,6 @@ const Home: FC = () => {
   }
 
   const onClickMarkup = ({ dealer_product_id, status }: MarkupButtonConfig) => {
-    setIsProductsCompanyLoading(true)
     if (status === 'markup' && Object.keys(selectedGood).length === 0) {
       setIsProductsCompanyLoading(false)
       setErrorText(
@@ -107,10 +102,7 @@ const Home: FC = () => {
           dealer_product_id,
           serial_number: selectedGood.serialNumber
         })
-        .then(() => {
-          setHistory([dealersProductsList[0], ...history])
-          setDealersProductsList(dealersProductsList.slice(1))
-        })
+        .then(res => res.data)
     }
   }
 
@@ -122,13 +114,14 @@ const Home: FC = () => {
   }
 
   const onResultClick = (type: 'result' | 'statistic') => {
-    // LOADING
+    setIsPopupLoading(true)
+    type === 'result' ? setIsResultOpen(true) : setIsStatisticsOpen(true)
     getAllDealersProducts()
-      .then(() => {
-        type === 'result' ? setIsResultOpen(true) : setIsStatisticsOpen(true)
-      })
       .catch(() => {
         setErrorText('Ошибка на сервере. Попробуйте перезагрузить страницу.')
+      })
+      .finally(() => {
+        setIsPopupLoading(false)
       })
   }
 
@@ -141,6 +134,7 @@ const Home: FC = () => {
             selectedGood={selectedGood}
             setSelectedGood={setSelectedGood}
             isProductCompanyLoading={isProductsCompanyLoading}
+            disabled={isDisabled}
           />
           <RightWindow
             allDealers={allDealers}
@@ -151,10 +145,14 @@ const Home: FC = () => {
             history={history}
             isDisabled={isDisabled}
             setHistory={setHistory}
+            disabled={isDisabled}
+            onChangeCurrentDealersGood={onChangeCurrentDealersGood}
+            setIsProductsCompanyLoading={setIsProductsCompanyLoading}
           />
         </div>
         <div className={styles.buttonsResult}>
           <Button
+            title="Посмотреть результаты разметки"
             style="green"
             onClick={() => {
               onResultClick('result')
@@ -163,6 +161,7 @@ const Home: FC = () => {
             disabled={isDisabled}
           />
           <Button
+            title="Посмотреть статистику качества работы приложения"
             style="green"
             onClick={() => {
               onResultClick('statistic')
@@ -172,7 +171,7 @@ const Home: FC = () => {
           />
         </div>
         {isResultOpen && (
-          <Popup setIsOpen={setIsResultOpen}>
+          <Popup setIsOpen={setIsResultOpen} isPopupLoading={isPopupLoading}>
             <Results
               allDealersProducts={allDealersProducts}
               onClickMarkup={onClickMarkup}
@@ -182,7 +181,10 @@ const Home: FC = () => {
           </Popup>
         )}
         {isStatisticsOpen && (
-          <Popup setIsOpen={setIsStatisticsOpen}>
+          <Popup
+            setIsOpen={setIsStatisticsOpen}
+            isPopupLoading={isPopupLoading}
+          >
             <Statistics allDealersProducts={allDealersProducts} />
           </Popup>
         )}

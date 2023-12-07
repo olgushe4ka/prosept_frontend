@@ -123,9 +123,11 @@ const Statistics: FC<StatisticConfig> = ({ allDealersProducts }) => {
               <td>{item.name}</td>
               <td>{item.number}</td>
               <td>
-                {item.percent % 1 === 0
-                  ? item.percent.toFixed(0)
-                  : item.percent.toFixed(2)}
+                {isNaN(item.percent)
+                  ? '100'
+                  : item.percent % 1 === 0
+                    ? item.percent.toFixed(0)
+                    : item.percent.toFixed(2)}
                 %
               </td>
             </tr>
@@ -133,27 +135,32 @@ const Statistics: FC<StatisticConfig> = ({ allDealersProducts }) => {
         </tbody>
       </table>
 
-      <div className={styles.average}>
-        <p>Средний порядковый номер по ответу "Да":</p>
-        <p>{calculateAverage(statisticAverage)}</p>
-      </div>
-
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>Порядковый №</th>
-            <th>Количество выбранных раз</th>
-          </tr>
-        </thead>
-        <tbody>
-          {statisticAverageForHTML.map((item, index: number) => (
-            <tr key={index}>
-              <td>{item.itemNumber} </td>
-              <td>{item.itemCount}</td>
+      {!isNaN(calculateAverage(statisticAverage)) && (
+        <div className={styles.average}>
+          <p>Среднее значение порядкового номер по ответу "Да":</p>
+          <p className={styles.numberAverage}>
+            {calculateAverage(statisticAverage)}
+          </p>
+        </div>
+      )}
+      {Object.keys(statisticAverageForHTML).length > 0 && (
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>Порядковый номер</th>
+              <th>Количество выбранных раз</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {statisticAverageForHTML.map((item, index: number) => (
+              <tr key={index}>
+                <td>{item.itemNumber} </td>
+                <td>{item.itemCount}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   )
 }

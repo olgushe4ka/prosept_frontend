@@ -13,7 +13,7 @@
   border-left: 1px solid #ccc;
   border-top: 1px solid #ccc;
   padding: 10px;
-  text-align: left;
+  text-align: center;
 }
 
 .table th {
@@ -49,6 +49,10 @@
   border-radius: 0 0 6px 0;
 }
 
+.table td {
+  position: relative;
+}
+
 .tableNumber {
   width: 40px;
   box-sizing: border-box;
@@ -62,6 +66,10 @@
 .tableNumberInList {
   width: 60px;
   box-sizing: border-box;
+}
+
+.tableGood {
+  text-align: left !important;
 }
 
 .deleteIcon {

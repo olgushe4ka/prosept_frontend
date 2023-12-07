@@ -58,21 +58,12 @@
   display: flex;
   gap: 10px;
   font-weight: 600;
+  align-items: center;
 }
 
-.chart-container {
-  position: relative;
-  width: 200px;
-  height: 200px;
-}
-
-.chart {
-  border-radius: 50%;
-  width: 100%;
-  height: 100%;
-  transform: rotate(-90deg);
-  transform-origin: center;
-  background: conic-gradient(#4caf50 0% 33%, #2196f3 33% 66%, #f44336 66% 100%);
+.numberAverage {
+  font-size: 17px;
+  font-weight: 700;
 }
 
 .text {

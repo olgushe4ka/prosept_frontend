@@ -33,7 +33,7 @@ const Table: React.FC<TableProps> = ({
             <th>Товар дилера</th>
             <th>Соответствие</th>
             <th className={styles.tableStatus}>Статус</th>
-            <th className={styles.tableNumberInList}>Порядковый №</th>
+            <th className={styles.tableNumberInList}>Порядковый номер</th>
             <th></th>
           </tr>
         </thead>
@@ -49,14 +49,19 @@ const Table: React.FC<TableProps> = ({
               return (
                 <tr key={index}>
                   <td className={styles.tableNumber}>{index + 1}</td>
-                  <td>{item.name}</td>
-                  <td>{item.productMap}</td>
+                  <td className={styles.tableGood}>{item.name}</td>
+                  <td className={styles.tableGood}>
+                    {item.productMap === 'undefined'
+                      ? 'не установлено'
+                      : item.productMap}
+                  </td>
                   <td className={styles.tableStatus}>{item.status}</td>
                   <td className={styles.tableNumberInList}>
-                    {item.numberInList}
+                    {item.numberInList === 0 ? '—' : item.numberInList}
                   </td>
                   <td className={styles.deleteIcon}>
                     <button
+                      title='Изменить статус товара на "Отложить"'
                       onClick={() => {
                         onClickMarkup({
                           dealer_product_id: item.id,

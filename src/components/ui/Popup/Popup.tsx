@@ -4,12 +4,15 @@ import { MdClose } from 'react-icons/md'
 
 import styles from './Popup.module.scss'
 
+import Preloader from '../Preloader/Preloader'
+
 interface IPopup {
   children: JSX.Element
   setIsOpen: (isOpen: boolean) => void
+  isPopupLoading: boolean
 }
 
-const Popup: FC<IPopup> = ({ children, setIsOpen }) => {
+const Popup: FC<IPopup> = ({ children, setIsOpen, isPopupLoading }) => {
   const ref = useClickAway<HTMLDivElement>(() => {
     setIsOpen(false)
   })
@@ -35,7 +38,9 @@ const Popup: FC<IPopup> = ({ children, setIsOpen }) => {
         >
           <MdClose />
         </button>
-        <div className={styles.content}> {children} </div>
+        <div className={styles.content}>
+          {isPopupLoading ? <Preloader /> : children}
+        </div>
       </div>
     </section>
   )

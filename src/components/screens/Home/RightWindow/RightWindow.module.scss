@@ -12,9 +12,10 @@
     0 14px 28px rgba(0, 0, 0, 0.25),
     0 10px 10px rgba(0, 0, 0, 0.22);
   display: flex;
+  position: relative;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   width: 700px;
   height: 300px;
   box-sizing: border-box;
@@ -37,6 +38,7 @@
   color: black;
   cursor: pointer;
   transition: opacity 0.3s ease-in-out;
+  line-height: 27px;
 }
 
 .productName:hover {
@@ -46,8 +48,9 @@
 .buttons {
   display: flex;
   justify-content: space-between;
-  width: 100%;
-  margin-top: 100px;
+  position: absolute;
+  width: 580px;
+  bottom: 30px;
 }
 
 .arrow {
@@ -63,11 +66,16 @@
 }
 
 .arrowContainer {
-  width: 25px;
+  min-width: 40px;
+}
+.arrowContainerRight {
+  min-width: 40px;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .endList {
   font-size: 18px;
-  margin: 0;
+  margin: auto;
   text-align: center;
 }

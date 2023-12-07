@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react'
 
 import styles from './LeftWindow.module.scss'
 
-import preloader from '../../../../images/preloader.gif'
+import Preloader from '../../../ui/Preloader/Preloader.js'
 import { CompanyProductConfig } from '../Home.interface.js'
 
 import { LeftWindowConfig } from './LeftWindow.interface.js'
@@ -12,7 +12,8 @@ const LeftWindow: FC<LeftWindowConfig> = ({
   allCompanyProducts,
   selectedGood,
   setSelectedGood,
-  isProductCompanyLoading
+  isProductCompanyLoading,
+  disabled
 }) => {
   const [goodsQuantity, setGoodsQuantity] = useState<number>(5) //количество отображаемых товаров
   const [searchRequest, setSearchRequest] = useState<string>('') //поисковый запрос
@@ -26,6 +27,7 @@ const LeftWindow: FC<LeftWindowConfig> = ({
   return (
     <section className={styles.leftWindow}>
       <input
+        disabled={disabled}
         className={styles.search}
         placeholder="Поиск по позициям PROSEPT"
         value={searchRequest}
@@ -48,6 +50,7 @@ const LeftWindow: FC<LeftWindowConfig> = ({
             setGoodsQuantity(Number(evt.target.value))
           }}
           defaultValue={5}
+          disabled={disabled}
         >
           <option value="1">1</option>
           <option value="3">3</option>
@@ -57,9 +60,7 @@ const LeftWindow: FC<LeftWindowConfig> = ({
       </label>
       <ul className={styles.list}>
         {isProductCompanyLoading ? (
-          <div className={styles.preloaderWrapper}>
-            <img src={preloader} alt="preloader" width="64px" />
-          </div>
+          <Preloader />
         ) : (
           searchGoods
             .slice(0, goodsQuantity)
