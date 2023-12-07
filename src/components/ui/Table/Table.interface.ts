@@ -1,3 +1,5 @@
+import { MarkupButtonConfig } from '../../screens/Home/Home.interface'
+
 export interface TableConfig {
   id: number
   name: string
@@ -6,4 +8,15 @@ export interface TableConfig {
   productMap: string
   numberInList: number
   date_status: Date
+}
+
+export interface TableProps {
+  data: Array<TableConfig>
+  onClickMarkup: ({
+    dealer_product_id,
+    status
+  }: MarkupButtonConfig) => Promise<void> | undefined
+  startDate: Date
+  endDate: Date
+  onResultClick: (type: 'result' | 'statistic') => void
 }

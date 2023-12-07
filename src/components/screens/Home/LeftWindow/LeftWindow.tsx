@@ -15,10 +15,10 @@ const LeftWindow: FC<LeftWindowConfig> = ({
   isProductCompanyLoading,
   disabled
 }) => {
-  const [goodsQuantity, setGoodsQuantity] = useState<number>(5) //количество отображаемых товаров
-  const [searchRequest, setSearchRequest] = useState<string>('') //поисковый запрос
+  const [goodsQuantity, setGoodsQuantity] = useState<number>(5)
+  const [searchRequest, setSearchRequest] = useState<string>('')
   const [searchGoods, setSearchGoods] =
-    useState<Array<CompanyProductConfig>>(allCompanyProducts) //найденные товары
+    useState<Array<CompanyProductConfig>>(allCompanyProducts)
 
   useEffect(() => {
     setSearchGoods(allCompanyProducts)

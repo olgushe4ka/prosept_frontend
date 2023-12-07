@@ -7,17 +7,7 @@ import Select, {
 
 import styles from './DropDown.module.scss'
 
-interface Dealer {
-  value: string
-  label: string
-}
-
-interface DropDownProps {
-  items: Dealer[]
-  onSelect: (selectedValues: string[] | string | null) => void
-  placeholder: string
-  disabled: boolean
-}
+import { Dealer, DropDownProps } from './DropDown.interface'
 
 const DropDown: React.FC<DropDownProps> = ({
   items,
@@ -37,7 +27,6 @@ const DropDown: React.FC<DropDownProps> = ({
     }
   }
 
-  // Styles for React Select
   const customStyles: Record<
     string,
     (

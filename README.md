@@ -66,6 +66,5 @@ npm run dev
 - [Normalize.css](https://necolas.github.io/normalize.css/)
 - [Lato font](https://fonts.google.com/specimen/Lato)
 
-
 - [Ссылка на репозиторий бэкенда](https://github.com/Anastasia7Si/project_backend)
 - [Ссылка на репозиторий датасаенс](https://github.com/BAR2LEHI/prosept_competition_2023)

@@ -29,8 +29,8 @@ const Period: FC<PeriodConfig> = ({
       <DatePicker
         selected={zonedTimeToUtc(startDate, userTimeZone)}
         onChange={(newDate: Date) => {
-          const zonedStartDate = utcToZonedTime(newDate, userTimeZone);
-          setStartDate(startOfDay(zonedStartDate));
+          const zonedStartDate = utcToZonedTime(newDate, userTimeZone)
+          setStartDate(startOfDay(zonedStartDate))
         }}
         selectsStart
         startDate={startDate}
@@ -44,7 +44,7 @@ const Period: FC<PeriodConfig> = ({
       <DatePicker
         selected={zonedTimeToUtc(endDate, userTimeZone)}
         onChange={(newDate: Date) => {
-          const zonedEndDate = utcToZonedTime(newDate,  userTimeZone)
+          const zonedEndDate = utcToZonedTime(newDate, userTimeZone)
           setEndDate(endOfDay(zonedEndDate))
         }}
         selectsEnd

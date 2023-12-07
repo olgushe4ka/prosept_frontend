@@ -7,3 +7,10 @@ export interface StatisticConfig {
 export interface StatisticAverageConfig {
   number: number
 }
+
+export interface statisticDataConfig {
+  markup: number
+  unclaimed: number
+  postponed: number
+  waiting: number
+}
