@@ -1,4 +1,4 @@
-# Система разметки товаров
+# Система разметки товаров 🪩
 
 Frontend для проекта хакатона от "Яндекс.Практикум" и "ПРОСЕПТ"
 
@@ -51,8 +51,8 @@ npm run dev
 ## Стэк технологий
 
 - HTML, CSS, TypeScript, React
-- препроцессор SCSS, модульные стили
-- сборщик Vite
+- Препроцессор SCSS, модульные стили
+- Сборщик Vite
 
 ## Ссылки
 
@@ -65,5 +65,5 @@ npm run dev
 - [SCSS](https://www.npmjs.com/package/scss)
 - [Normalize.css](https://necolas.github.io/normalize.css/)
 
-- [Link to Backend Repository](https://github.com/Anastasia7Si/project_backend)
-- [Link to DS Repository](https://github.com/BAR2LEHI/prosept_competition_2023)
+- [Ссылка на репозиторий бэкенда](https://github.com/Anastasia7Si/project_backend)
+- [Ссылка на репозиторий датасаенс](https://github.com/BAR2LEHI/prosept_competition_2023)
