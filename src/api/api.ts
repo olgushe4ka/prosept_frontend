@@ -25,7 +25,7 @@ class Api {
   }
 
   getAllDealers() {
-    return this.axios.get('/dealers')
+    return this.axios.get('/dealers/')
   }
 
   markupDealerProduct(params: MarkupDealerProductConfig) {
@@ -49,7 +49,7 @@ class Api {
   }
 
   getMachineMatching(dealer_product_id: number) {
-    return this.axios.get(`/company/machine-matching/${dealer_product_id}`)
+    return this.axios.get(`/company/machine-matching/${dealer_product_id}/`)
   }
 }
 
