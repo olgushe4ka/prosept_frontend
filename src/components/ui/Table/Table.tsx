@@ -24,6 +24,17 @@ const Table: React.FC<TableProps> = ({
   endDate,
   onResultClick
 }) => {
+  const filteredData = data.filter(item => {
+    return (
+      item.date_status.getTime() > startDate.getTime() &&
+      item.date_status.getTime() < endDate.getTime()
+    )
+  })
+
+  if (filteredData.length === 0) {
+    return <p className={styles.text}>Нет размеченных товаров за этот период</p>
+  }
+
   return (
     <>
       <table className={styles.table}>

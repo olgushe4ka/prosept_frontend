@@ -69,13 +69,17 @@ const Results: FC<ResultsConfig> = ({
         setEndDate={setEndDate}
       />
       <div className={styles.datePickerContainer}></div>
-      <Table
-        startDate={startDate}
-        endDate={endDate}
-        data={itemsList}
-        onClickMarkup={onClickMarkup}
-        onResultClick={onResultClick}
-      />
+      {itemsList.length === 0 ? (
+        <p>Нет размеченных товаров за этот период</p>
+      ) : (
+        <Table
+          startDate={startDate}
+          endDate={endDate}
+          data={itemsList}
+          onClickMarkup={onClickMarkup}
+          onResultClick={onResultClick}
+        />
+      )}
     </div>
   )
 }
