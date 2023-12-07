@@ -17,7 +17,7 @@ Frontend для проекта хакатона от "Яндекс.Практи�
 
 ```sh
 git clone git@github.com:olgushe4ka/prosept_frontend.git
-code prospect_frontend
+cd prosept_frontend
 ```
 
 - Установить зависимости
