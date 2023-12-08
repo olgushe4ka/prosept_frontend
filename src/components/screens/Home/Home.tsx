@@ -36,7 +36,9 @@ const Home: FC = () => {
       getAllDealersProducts().then(async res => {
         setDealersProductsList(
           res.data.filter((product: DealerProductConfig) => {
-            return product.status === 'waiting'
+            return (
+              product.status === 'waiting' || product.status === 'postponed'
+            )
           })
         )
         setIsProductsCompanyLoading(true)

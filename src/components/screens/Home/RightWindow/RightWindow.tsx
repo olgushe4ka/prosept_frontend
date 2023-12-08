@@ -56,7 +56,10 @@ const RightWindow: FC<IRightWindow> = ({
         dealer => newValue?.includes(dealer.name) || newValue?.length === 0
       )
       .map(dealer =>
-        dealer.dealer_product.filter(product => product.status === 'waiting')
+        dealer.dealer_product.filter(
+          product =>
+            product.status === 'waiting' || product.status === 'postponed'
+        )
       )
       .flat()
     setDealersProductsList(temp)
